@@ -224,6 +224,37 @@ function start game over screen
 
 TODO:
 
+- Main.js build dom
+- main.js buildSplashScreen
+- Main.js addEventListener
+- main.js buildGameScreen
+- Main.js buildGameOverScreen
+- Game.js buildCanvas
+- Game.js clear canvas
+- Game.js update canvas
+- game.js draw canvas
+- game.js draw player
+- game.js draw random enemy
+- game.js set game over
+- Game.js calculate collision
+- game.js addEventListener
+- game.js move player
+- Game.js move enemy
+- game.js check enemy inside screen
+- Game.js check game over => player life < 0
+- game.js calculate score
+- player.js create player canvas
+- Player.js define player direction
+- player.js define remove life
+- player.js update player position
+- Player.js player colide
+- Enemy.js define enemy canvas
+- Enemy.js prototype move enemy
+- Enemy.js prototyoe draw enemy
+
+- Backlog: add goods
+- Backlog: calculate enemy evade
+
 
 
 
