@@ -60,7 +60,17 @@ buildSplashScreen(){
 
 function create Game Play Screen
 
+```
+buildGameScreen(){
+}
+```
+
 function create Game Over Screen
+
+```
+buildGameOverScreen(){
+}
+```
 
 function append Screen to load to the document needed, start, game, game over
 
@@ -70,7 +80,25 @@ function append Screen to load to the document needed, start, game, game over
 
 function define player canvas, default position, speed, life, size
 
-function define player lifes
+​		this.canvas
+
+​		this.ctx
+
+​		this.lives
+
+​		this.size
+
+​		this.speed
+
+​		this.x
+
+​		this.y
+
+​		this.direction
+
+​		this.speed
+
+​	
 
 function.prototype define player direction 
 
@@ -78,9 +106,17 @@ backlog function.prototype player collide goods
 
 function.prototype draw player
 
+​		this.ctx.fillrect
+
+​		this.ctx.fillstyle
+
 Function.prototype remove life
 
+​			this.lives -= 1
+
 function.prototype upadet player position
+
+fucntion.prototype player collide
 
 
 
@@ -88,13 +124,45 @@ function.prototype upadet player position
 
 Function define enemy canvas, speed, position x, size
 
+​		this.canvas
+
+​		this.ctx
+
+​		this.size
+
+​		this.x
+
+​		this.y
+
+​		this.speed
+
 function.prototype move enemy
 
 function.prototype draw enemie
 
+​		this.ctx.fillstyle
+
+​		this.ctx.fillRect
+
 
 
 ##### game.js
+
+Function Game
+
+​		this.canvas
+
+​		this.ctx
+
+​		this.enemies
+
+​		this.player
+
+​		this.gameOver
+
+​		this.gameScreen
+
+​		this.score
 
 Function handle collision
 
@@ -162,7 +230,7 @@ TODO:
 
 ##### Links
 
-trello
+trello: https://trello.com/b/DHOpOlC2/thanks-a-lot-for-all-the-iron
 
 github:	https://github.com/Surijal/thanks-a-lot-for-all-the-iron
 
