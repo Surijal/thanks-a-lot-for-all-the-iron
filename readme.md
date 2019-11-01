@@ -1,6 +1,6 @@
-# WorkingTitle
+# thanks a lot for all the iron
 
-Working title is a game were the Player like to reach highest possible score, jumping over enemys to get points, collecting goods to get points. A good got same color like the player, an enemy got a different color.
+thanks a lot for all the iron is a game were the Player like to reach highest possible score, jumping over enemys to get points, collecting goods to get points. A good got same color like the player, an enemy got a different color.
 
 ### Backlog
 
@@ -176,7 +176,9 @@ TODO:
 
 trello
 
-github
+github:
+
+https://github.com/Surijal/thanks-a-lot-for-all-the-iron
 
 
 
