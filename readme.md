@@ -252,8 +252,20 @@ TODO:
 - Enemy.js prototype move enemy
 - Enemy.js prototyoe draw enemy
 
+
+
+
+
+
+
 - Backlog: add goods
 - Backlog: calculate enemy evade
+- Backlog: Difficulty: enemy change color
+- Backlog: Difficulty: Player change color
+- Backlog: Difficulty: Both player and enemy change color
+- Backlog: Pause Button
+- Backlog: Speed game up over time
+- Backlog: speed enemy up over time
 
 
 
