@@ -230,6 +230,7 @@ TODO:
 - main.js buildGameScreen
 - Main.js buildGameOverScreen
 - Game.js buildCanvas
+- Game.js start loop function
 - Game.js clear canvas
 - Game.js update canvas
 - game.js draw canvas
@@ -247,7 +248,6 @@ TODO:
 - Player.js define player direction
 - player.js define remove life
 - player.js update player position
-- Player.js player colide
 - Enemy.js define enemy canvas
 - Enemy.js prototype move enemy
 - Enemy.js prototyoe draw enemy
