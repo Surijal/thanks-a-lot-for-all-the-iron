@@ -32,8 +32,6 @@ thanks a lot for all the iron is a game were the Player like to reach highest po
 
 ./src/enemy.js
 
-./src/score.js
-
 ./css/style.css
 
 
@@ -43,16 +41,11 @@ thanks a lot for all the iron is a game were the Player like to reach highest po
 Basic html
 
 <style href="./css/styles.css"></style>
-
 <script scr="./src/main.js"></script>
-
 <script src="./src/game.js"></script>
-
 <script src="./src/player.js"></script>
-
 <script src="./src/enemy.js"></script>
 
-BACKLOG: <script src="./src/score.js"></script>
 
 
 
@@ -60,11 +53,16 @@ BACKLOG: <script src="./src/score.js"></script>
 
 function create Game Start Screen
 
+```
+buildSplashScreen(){
+}
+```
+
 function create Game Play Screen
 
 function create Game Over Screen
 
-function append Screen to load to the document
+function append Screen to load to the document needed, start, game, game over
 
 
 
@@ -74,11 +72,9 @@ function define player canvas, default position, speed, life, size
 
 function define player lifes
 
-function.prototype define player Movement
+function.prototype define player direction 
 
-function.prototype player collide enemy
-
-function.prototype player collide goods
+backlog function.prototype player collide goods
 
 function.prototype draw player
 
@@ -94,15 +90,7 @@ Function define enemy canvas, speed, position x, size
 
 function.prototype move enemy
 
-function.prototype enemy collide player
-
-function.prototype enemy moves out of screen
-
 function.prototype draw enemie
-
-function.prototype create random enemy
-
-function.prototype update enemy position
 
 
 
@@ -118,9 +106,9 @@ function start game loop
 
 ​	draw random enemy
 
-​	update enemey
+​	update enemey position
 
-​	update player
+​	update player position
 
 ​	check colision	(player, enemy)
 
@@ -176,9 +164,7 @@ TODO:
 
 trello
 
-github:
-
-https://github.com/Surijal/thanks-a-lot-for-all-the-iron
+github:	https://github.com/Surijal/thanks-a-lot-for-all-the-iron
 
 
 
