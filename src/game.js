@@ -27,6 +27,9 @@ Game.prototype.start = function() {
     //create new Player in the prototype, canvas and 3 Lives
     this.player = new Player( this.canvas, 3);
 
+    // create new Ground
+    this.ground = new Ground (this.canvas );
+
     //add event listener to move player with keys
     this.handleKeyUp = function ( event ) {
         if (event.key === 'ArrowUp') {
@@ -52,6 +55,9 @@ Game.prototype.startLoop = function() {
         // 3. Update the canvas
         // 3.1 draw the player call the prototype function
         this.player.draw();
+
+        // 3.2 draw the Ground
+        this.ground.drawGround();
 
         console.log('in loop'); // control log to see if game is in loop
 
