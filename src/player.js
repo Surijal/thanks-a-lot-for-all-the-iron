@@ -4,15 +4,18 @@
 function Player( canvas, lives ) {
     this.canvas = canvas; //define canvas Player property
     this.ctx = this.canvas.getContext('2d'); // defining player canvas Context as 2d
-
+    var canvasHeight = this.canvas.height;
     this.lives = lives; // defining lives property
 
     this.sizeWidth = 32;    // defining playerWidth
     this.sizeHeight = 32;  // defining playerHeight
     this.x = 50;    // defining player X default position
     // defining player Y default position
-    this.y = 100;   
+    
     this.groundHeight = 75;
+    //this.y = 600;  
+    this.y = canvasHeight - this.groundHeight -this.sizeHeight;
+
 
     this.jumping = true;
     this.xVelocity = 0;
