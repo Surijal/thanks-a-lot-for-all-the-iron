@@ -33,9 +33,12 @@ Game.prototype.start = function() {
     //add event listener to move player with keys
     this.handleKeyUp = function ( event ) {
         if (event.key === 'ArrowUp') {
-            this.player.setDirection('jump');
-        }
+            this.player.setDirection('up');
+        };
+        
     };
+
+    console.log(event);
 
     //add eventlistener to key up
     document.body.addEventListener('keydown', this.handleKeyUp.bind(this));
@@ -51,6 +54,7 @@ Game.prototype.startLoop = function() {
 
 
         // 2. Clear the canvas
+        this.ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height );
 
         // 3. Update the canvas
         // 3.1 draw the player call the prototype function
