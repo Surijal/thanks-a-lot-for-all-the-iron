@@ -10,8 +10,14 @@ function Player( canvas, lives ) {
     this.sizeWidth = 30;    // defining playerWidth
     this.sizeHeight = 70;  // defining playerHeight
     this.x = 50;    // defining player X default position
-    this.y = 100;    // defining player Y default position
+    this.y = 600;    // defining player Y default position
 
+}
+
+// defining Player prototype movement
+Player.prototype.setDirection = function ( direction ) {
+    if ( direction === 'jump' ) this.direction =-3;
+    
 }
 
 // defining Player prototype draw function

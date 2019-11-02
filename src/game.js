@@ -20,12 +20,22 @@ Game.prototype.start = function() {
 
     // defining the canvas viewport
     this.containerWidth = this.canvasContainer.offsetWidth; // defining canvas width
-    this.containerHeigth = this.canvasContainer.offsetHeigth;   // defining canvas heigth
+    this.containerHeight = this.canvasContainer.offsetHeight;   // defining canvas height
     this.canvas.setAttribute('width', this.containerWidth ); // adding width attribute to containerWidth
-    this.canvas.setAttribute('heigth', this.containerHeigth ); // adding height attribute to containerHeigth
+    this.canvas.setAttribute('height', this.containerHeight ); // adding height attribute to containerHeight
 
     //create new Player in the prototype, canvas and 3 Lives
     this.player = new Player( this.canvas, 3);
+
+    //add event listener to move player with keys
+    this.handleKeyUp = function ( event ) {
+        if (event.key === 'ArrowUp') {
+            this.player.setDirection('jump');
+        }
+    };
+
+    //add eventlistener to key up
+    document.body.addEventListener('keydown', this.handleKeyUp.bind(this));
     
     // call startLoop - starting the game Loop
     this.startLoop();
