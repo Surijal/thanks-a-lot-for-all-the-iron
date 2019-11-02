@@ -22,7 +22,7 @@ html, body {
     margin: 0 20px;
 }
 
-@media ( min-width: 768px ) {
+@media ( min-width: 768px )  {
     .container {
         max-width: 728px;
         margin: 0 auto;
@@ -43,4 +43,20 @@ html, body {
     height: 50px;
     display: flex;
     align-items: center;
+}
+
+.game .lives {
+    flex: 1;
+}
+
+.game .score {
+    flex: 1;
+}
+
+.game .label {
+    font-weight: bold;
+}
+
+.game .canvas-container {
+    flex: 1;
 }
