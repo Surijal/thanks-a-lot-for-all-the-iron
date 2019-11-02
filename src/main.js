@@ -75,11 +75,15 @@ function main () {
     function startGame() {
         removeSplashScreen(); // removing SplashScreen to load gameScreen after
 
-        removeGameOverScreen(); // remove te GameOverScreen in case game is restartet from GameOverScreen
+        //removeGameOverScreen(); // remove te GameOverScreen in case game is restartet from GameOverScreen
 
         game = new Game(); // creating new instance of the game
 
         game.gameScreen =createGameScreen(); // call the createGameScreen function to attach gameScreen to index.html
+
+        game.start();
+
+        //End the game, define gameOver later
 
         
     }
@@ -90,4 +94,3 @@ function main () {
 }
 
 window.addEventListener( 'load', main);     // load main function
-
