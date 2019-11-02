@@ -7,8 +7,16 @@ function Player( canvas, lives ) {
 
     this.lives = lives; // defining lives property
 
-    this.size = 100;
-    this.x = 50;
-    this.y = 50;
+    this.sizeWidth = 50;    // defining playerWidth
+    this.sizeHeigth = 100;  // defining playerHeigth
+    this.x = 50;    // defining player X default position
+    this.y = 50;    // defining player Y default position
 
+}
+
+// defining Player prototype draw function
+Player.prototype.draw = function() {
+    this.ctx.fillStyle = '#33FFF0'; // color property
+    // defining player x position, player y position, player width, player height
+    this.ctx.fillRect(this.x, this.y, this.sizeWidth, this.sizeHeigth); 
 }
