@@ -30,7 +30,7 @@ Game.prototype.start = function() {
     // create new Ground
     this.ground = new Ground (this.canvas );
 
-    //define function move player keyUp
+    //define function move player keydown
     this.handleKeyDown = function ( event ) {
         if (event.key === 'ArrowUp') {
             this.player.setDirection('up');

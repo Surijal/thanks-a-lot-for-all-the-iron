@@ -4,7 +4,7 @@
 function Player( canvas, lives ) {
     this.canvas = canvas; //define canvas Player property
     this.ctx = this.canvas.getContext('2d'); // defining player canvas Context as 2d
-    var canvasHeight = this.canvas.height;
+    this.canvasHeight = this.canvas.height;
     this.lives = lives; // defining lives property
 
     this.sizeWidth = 32;    // defining playerWidth
@@ -12,9 +12,9 @@ function Player( canvas, lives ) {
     this.x = 50;    // defining player X default position
     // defining player Y default position
     
-    this.groundHeight = 75;
+    this.groundHeight = 76;
     //this.y = 600;  
-    this.y = canvasHeight - this.groundHeight -this.sizeHeight;
+    this.y = this.canvasHeight - this.groundHeight -this.sizeHeight;
 
 
     this.jumping = true;
@@ -34,9 +34,10 @@ Player.prototype.setDirection = function ( direction ) {
 
 
 
-    if ( direction === 'up' && this.jumping === false ) {  
+    if ( direction === 'up' && this.jumping == false ) {  
          // direction up,jump
-        this.yVelocity -= 20;
+        this.yVelocity -= 100;
+        this.y -= this.speed;
         this.jumping = true;
         this.y -=  (this.speed * 2);
     } 
@@ -55,13 +56,13 @@ Player.prototype.setDirection = function ( direction ) {
     
     var gravity =  this.yVelocity += 15; // gravity
     this.x += this.xVelocity;
-    this.y += ( this.canvas.height - this.yVelocity - this.sizeHeight - (this.groundHeight / 2 )) ;
+    this.y += ( this.canvasHeight - this.yVelocity - this.sizeHeight - this.groundHeight ) ;
 
     
-    if ( this.y > this.canvas.height - this.groundHeight  ) {      
+    if ( this.y > this.canvasHeight - this.groundHeight  ) {      
          // prevent player falling through ground
         this.jumping = false;
-        this.y = ( this.canvas.height - this.sizeHeight - ( this.groundHeight ));
+        this.y = ( this.canvasHeight - this.sizeHeight - this.groundHeight );
         this.yVelocity = 0;
     }
     
@@ -70,7 +71,7 @@ Player.prototype.setDirection = function ( direction ) {
 // bottomCollision prototype
 Player.prototype.bottomCollision = function () {
         this.y = this.y + this.yVelocity + this.direction;
-        var bottom = this.canvas.height - this.groundHeight - this.sizeHeight;
+        var bottom = this.canvasHeight - this.groundHeight - this.sizeHeight;
         
         if ( this.y > bottom) this.y = this.bottom;
 }
