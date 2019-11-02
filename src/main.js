@@ -69,6 +69,21 @@ function main () {
         game.removeGameScreen();
     }
 
+    // Funvtion GameOverScreen - placeholder to load, modifie comment after
+
+    // Starting the Game
+    function startGame() {
+        removeSplashScreen(); // removing SplashScreen to load gameScreen after
+
+        removeGameOverScreen(); // remove te GameOverScreen in case game is restartet from GameOverScreen
+
+        game = new Game(); // creating new instance of the game
+
+        game.gameScreen =createGameScreen(); // call the createGameScreen function to attach gameScreen to index.html
+
+        
+    }
+
 
     // initializing SplashScreen for first GameStart
     createSplashScreen();
