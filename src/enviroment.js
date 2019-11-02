@@ -5,9 +5,10 @@ function Ground ( canvas ) {
     this.canvas = canvas; // defines canvas of Ground
     this.ctx = this.canvas.getContext('2d'); //defining Ground canvas 2d
 
-    this.sizeWidth = this.canvas.width;
-    this.sizeHeight = 85;
-    this.y = this.canvas.height;
+    this.groundWidth = this.canvas.width;
+    this.groundY = this.canvas.height - 75;
+    this.groundHeight = 75;
+    
 
 } 
 
@@ -15,9 +16,9 @@ function Ground ( canvas ) {
 //defining Ground prototype function
 Ground.prototype.drawGround = function() {
     this.ctx.strokeStyle = '#FF9C33'; // color porperty 
-    this.ctx.lineWidth = this.sizeHeight;
+    this.ctx.lineWidth = this.groundHeight;
     this.ctx.beginPath();
-    this.ctx.moveTo( 0, this.y );
-    this.ctx.lineTo ( this.canvas.width, this.y );
+    this.ctx.moveTo( 0, this.groundY );
+    this.ctx.lineTo ( this.canvas.width, this.groundY );
     this.ctx.stroke();
 }

@@ -10,7 +10,9 @@ function Player( canvas, lives ) {
     this.sizeWidth = 32;    // defining playerWidth
     this.sizeHeight = 32;  // defining playerHeight
     this.x = 50;    // defining player X default position
-    this.y = 675 - this.sizeHeight  -7.5;   // defining player Y default position
+    // defining player Y default position
+    this.y = 100;   
+    this.groundHeight = 75;
 
     this.jumping = true;
     this.xVelocity = 0;
@@ -24,11 +26,9 @@ function Player( canvas, lives ) {
 // defining Player prototype movement
 Player.prototype.setDirection = function ( direction ) {
 
-    
+   
 
-    var gravity =  this.yVelocity += 15; // gravity
-    //this.x += this.xVelocity;
-    //this.y += this.yVelocity;
+
 
 
     if ( direction === 'up' && this.jumping === false ) {  
@@ -50,11 +50,15 @@ Player.prototype.setDirection = function ( direction ) {
         this.x += this.speed;
     }
     
+    var gravity =  this.yVelocity += 15; // gravity
+    this.x += this.xVelocity;
+    this.y += ( this.canvas.height - this.yVelocity - this.sizeHeight - (this.groundHeight / 2 )) ;
+
     
-    if ( this.y >  667.5  ) {      
+    if ( this.y > this.canvas.height - this.groundHeight  ) {      
          // prevent player falling through ground
         this.jumping = false;
-        this.y = (675 - this.sizeHeight - 7.5);
+        this.y = ( this.canvas.height - this.sizeHeight - ( this.groundHeight ));
         this.yVelocity = 0;
     }
     
@@ -63,7 +67,7 @@ Player.prototype.setDirection = function ( direction ) {
 // bottomCollision prototype
 Player.prototype.bottomCollision = function () {
         this.y = this.y + this.yVelocity + this.direction;
-        var bottom = this.canvas.height - 45 - this.sizeHeight;
+        var bottom = this.canvas.height - this.groundHeight - this.sizeHeight;
         
         if ( this.y > bottom) this.y = this.bottom;
 }
@@ -77,6 +81,6 @@ Player.prototype.removeLive = function() {
 Player.prototype.draw = function() {
     this.ctx.fillStyle = '#33FFF0'; // color property
     // defining player x position, player y position, player width, player height
-    this.ctx.fillRect(this.x += this.xVelocity, this.y += this.yVelocity, this.sizeWidth, this.sizeHeight); 
+    this.ctx.fillRect(this.x , this.y, this.sizeWidth, this.sizeHeight); 
 }
 

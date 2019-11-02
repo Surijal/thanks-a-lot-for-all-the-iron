@@ -34,7 +34,7 @@ Game.prototype.start = function() {
     this.handleKeyDown = function ( event ) {
         if (event.key === 'ArrowUp') {
             this.player.setDirection('up');
-            console.log(event);
+        
         }
         if ( event.key === 'ArrowRight' ) {
             this.player.setDirection('right');
@@ -68,17 +68,20 @@ Game.prototype.startLoop = function() {
 
         
         // bottomCollision call
-        this.player.bottomCollision();
+       this.player.bottomCollision();
 
         // Clear the canvas
         this.ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height );
 
         //  Update the canvas
         //  draw the player call the prototype function
+       
         this.player.draw();
-
         // draw the Ground
         this.ground.drawGround();
+
+        
+        console.log(this.player);
 
         console.log('in loop'); // control log to see if game is in loop
 
