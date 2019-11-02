@@ -22,4 +22,17 @@ Game.prototype.start = function() {
     this.canvas.setAttribute('heigth', this.containerHeigth ); // adding height attribute to containerHeigth
     
     // call startLoop - starting the game Loop
+    this.startLoop();
+}
+
+// defining Game prototype startLoop function
+Game.prototype.startLoop = function() {
+    var loop = function() {
+
+        console.log('in loop'); // control log to see if game is in loop
+
+        window.requestAnimationFrame(loop);
+    }.bind(this);
+
+    window.requestAnimationFrame(loop);
 }
