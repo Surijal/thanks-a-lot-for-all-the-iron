@@ -51,7 +51,7 @@ Game.prototype.start = function() {
 
     };
 
-    console.log(event);
+    
 
     //add eventlistener to keyDown
     document.body.addEventListener('keydown', this.handleKeyDown.bind(this));
@@ -67,15 +67,17 @@ Game.prototype.startLoop = function() {
     var loop = function() {
 
         
+        // bottomCollision call
+        this.player.bottomCollision();
 
-        // 2. Clear the canvas
+        // Clear the canvas
         this.ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height );
 
-        // 3. Update the canvas
-        // 3.1 draw the player call the prototype function
+        //  Update the canvas
+        //  draw the player call the prototype function
         this.player.draw();
 
-        // 3.2 draw the Ground
+        // draw the Ground
         this.ground.drawGround();
 
         console.log('in loop'); // control log to see if game is in loop

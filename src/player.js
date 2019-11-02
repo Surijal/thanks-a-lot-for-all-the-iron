@@ -60,6 +60,19 @@ Player.prototype.setDirection = function ( direction ) {
     
 }
 
+// bottomCollision prototype
+Player.prototype.bottomCollision = function () {
+        this.y = this.y + this.yVelocity + this.direction;
+        var bottom = this.canvas.height - 45 - this.sizeHeight;
+        
+        if ( this.y > bottom) this.y = this.bottom;
+}
+
+// remove live prototype
+Player.prototype.removeLive = function() {
+    this.lives -= 1;
+}
+
 // defining Player prototype draw function
 Player.prototype.draw = function() {
     this.ctx.fillStyle = '#33FFF0'; // color property

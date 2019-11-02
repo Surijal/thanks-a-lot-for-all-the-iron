@@ -5,9 +5,9 @@ function Ground ( canvas ) {
     this.canvas = canvas; // defines canvas of Ground
     this.ctx = this.canvas.getContext('2d'); //defining Ground canvas 2d
 
-    this.sizeWidth = 768;
-    this.sizeHeight = 15;
-    this.y = 675;
+    this.sizeWidth = this.canvas.width;
+    this.sizeHeight = 85;
+    this.y = this.canvas.height;
 
 } 
 
@@ -18,6 +18,6 @@ Ground.prototype.drawGround = function() {
     this.ctx.lineWidth = this.sizeHeight;
     this.ctx.beginPath();
     this.ctx.moveTo( 0, this.y );
-    this.ctx.lineTo ( 768, this.y );
+    this.ctx.lineTo ( this.canvas.width, this.y );
     this.ctx.stroke();
 }
