@@ -20,6 +20,9 @@ Game.prototype.start = function() {
     this.containerHeigth = this.canvasContainer.offsetHeigth;   // defining canvas heigth
     this.canvas.setAttribute('width', this.containerWidth ); // adding width attribute to containerWidth
     this.canvas.setAttribute('heigth', this.containerHeigth ); // adding height attribute to containerHeigth
+
+    //create new Player in the prototype, canvas and 3 Lives
+    this.player = new Player( this.canvas, 3);
     
     // call startLoop - starting the game Loop
     this.startLoop();
@@ -28,6 +31,14 @@ Game.prototype.start = function() {
 // defining Game prototype startLoop function
 Game.prototype.startLoop = function() {
     var loop = function() {
+
+
+
+        // 2. Clear the canvas
+
+        // 3. Update the canvas
+        // 3.1 draw the player call the prototype function
+        this.player.draw();
 
         console.log('in loop'); // control log to see if game is in loop
 
