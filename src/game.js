@@ -30,18 +30,33 @@ Game.prototype.start = function() {
     // create new Ground
     this.ground = new Ground (this.canvas );
 
-    //add event listener to move player with keys
-    this.handleKeyUp = function ( event ) {
+    //define function move player keyUp
+    this.handleKeyDown = function ( event ) {
         if (event.key === 'ArrowUp') {
             this.player.setDirection('up');
-        };
+            console.log(event);
+        }
+        if ( event.key === 'ArrowRight' ) {
+            this.player.setDirection('right');
+        }
+        if ( event.key === 'ArrowLeft' ) {
+            this.player.setDirection('left');
+        }
         
+    };
+
+    // define function move player  keyDown
+    this.handleKeyUp = function ( event ) {
+        
+
     };
 
     console.log(event);
 
-    //add eventlistener to key up
-    document.body.addEventListener('keydown', this.handleKeyUp.bind(this));
+    //add eventlistener to keyDown
+    document.body.addEventListener('keydown', this.handleKeyDown.bind(this));
+    //add eventlistener to keyUp
+    document.body.addEventListener('keyup', this.handleKeyUp.bind(this) );
     
     // call startLoop - starting the game Loop
     this.startLoop();
@@ -51,7 +66,7 @@ Game.prototype.start = function() {
 Game.prototype.startLoop = function() {
     var loop = function() {
 
-
+        
 
         // 2. Clear the canvas
         this.ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height );
