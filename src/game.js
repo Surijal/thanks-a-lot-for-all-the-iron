@@ -4,8 +4,11 @@
 function Game() {
     this.canvas = null; //add canvas property
     this.ctx = null;    //add ctx property
+
     // add enemy property
     // add player property
+    this.player = 0;
+
     this.gameScreen = null;
 }
 
