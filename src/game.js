@@ -9,6 +9,7 @@ function Game() {
     // add player property
     this.player = null;
     this.enemies = [];
+    this.goods = [];
     
     this.gameIsOver = false;
     this.gameScreen = null;
@@ -34,7 +35,7 @@ Game.prototype.start = function() {
     this.canvas.setAttribute('height', this.containerHeight ); // adding height attribute to containerHeight
     this.groundHeight = 76;
     this.groundLevel = this.canvas.height - this.groundHeight;
-    this.enemySpawn = this.canvas.width;
+    this.spawn = this.canvas.width;
     //create new Player in the prototype, canvas and 8 Lives
     this.player = new Player( this.canvas, 8);
 
@@ -80,27 +81,25 @@ Game.prototype.start = function() {
 
 // defining Game prototype startLoop function
 Game.prototype.startLoop = function() {
-    var loop = function() {
-        
-        
-        // random enemy create
-        
+    var loop = function() { 
+        // random enemy create 
         if ( Math.random() > 0.98 ) {
             var random =  768 * Math.random();
-            
-            var startX = this.enemySpawn;
+            var startX = this.spawn;
 
-            this.enemies.push(new SpikedEnemy(this.canvas, startX, 1.5, random));
-                
+            this.enemies.push(new SpikedEnemy(this.canvas, startX, 1.5, random));  
         };
-        
-        
+        //radom create goods
+        if ( Math.random() > 0.99 ) {
+            var randomGood = 2 * Math.random();
+            var startXGood = this.spawn;
+
+            this.goods.push(new Ironbars(this.canvas, startXGood, 0.5, randomGood ));
+        };
         // call collision check
         this.checkCollisions();
-
         // bottomCollision call
         this.player.bottomCollision();
-
         // enemies update
         
         
@@ -124,12 +123,22 @@ Game.prototype.startLoop = function() {
             return one.insideScreen();
         });
 
+        this.goods = this.goods.filter(function (good) {
+            good.updatePositionIronbar();
+            return good.insideScreenW();
+        })
+
         
 
          // draw enemy
         this.enemies.forEach(function( item ) { 
             item.drawSpikedEnemy();
             
+        });
+
+        // draw goods
+        this.goods.forEach(function(goodDraw){
+            goodDraw.drawIronbars();
         });
         
         // stop game if its over
@@ -184,4 +193,5 @@ Game.prototype.updateGameStats = function() {
     this.score +=1;
     this.livesElement.innerHTML = this.player.lives;
     this.scoreElement.innerHTML = this.score;
+    this.ironbarElement.innerHTML = this.ironbar;
 }

@@ -19,7 +19,7 @@ function SpikedEnemy ( canvas, x, speed, random) {
 }
 
 SpikedEnemy.prototype.drawSpikedEnemy = function () {
-    this.ctx.fillStyle ='#95887B';
+    this.ctx.fillStyle ='#581845';
 
     this.ctx.fillRect( this.x, this.y, this.spikedEnemyWidth, this.spikedEnemyHeight);
 }
