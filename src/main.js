@@ -49,7 +49,7 @@ function main () {
                     <span class="value"></span>
                 </div>
                 <div class="score">
-                    <span class="label"></span>
+                    <span class="label">Score:</span>
                     <span class="value"></span>
                 </div>
             </header>

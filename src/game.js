@@ -21,6 +21,9 @@ Game.prototype.start = function() {
     this.canvasContainer = document.querySelector('.canvas-container'); // get canvas-container
     this.canvas = document.querySelector('canvas'); // get canvas
     this.ctx = this.canvas.getContext('2d'); // defining Canvas Context 2d
+    //saving lives and score to the html
+    this.livesElement =  this.gameScreen.querySelector('.lives .value');
+    this.scoreElement = this.gameScreen.querySelector('.score .value');
 
     // defining the canvas viewport
     this.containerWidth = this.canvasContainer.offsetWidth; // defining canvas width
@@ -127,21 +130,17 @@ Game.prototype.startLoop = function() {
             
         });
         
-
+        // stop game if its over
         if (!this.gameIsOver) {
             window.requestAnimationFrame(loop);
-        }
+        }  
 
-        
-        
-
-        
+        // Update Game Stats
+        this.updateGameStats();
     
         console.log('in loop'); // control log to see if game is in loop
 
-        
-
-        window.requestAnimationFrame(loop);
+        //window.requestAnimationFrame(loop);
     }.bind(this);
 
     window.requestAnimationFrame(loop);
@@ -152,7 +151,7 @@ Game.prototype.checkCollisions = function () {
         if (this.player.didCollideSpikedEnemy(SpikedEnemy)){
             this.player.removeLive();
 
-            SpikedEnemy.y = this.groundLevel - (SpikedEnemy.spikedEnemyHeight / 2);
+            SpikedEnemy.y = this.groundLevel - (SpikedEnemy.spikedEnemyHeight);
 
             if (this.player.lives === 0) {
                 this.gameOver();
@@ -176,4 +175,11 @@ Game.prototype.gameOver = function() {
 
 Game.prototype.removeGameScreen = function() {
     this.gameScreen.remove();
+}
+
+//Update Game stats
+Game.prototype.updateGameStats = function() {
+    this.score +=1;
+    this.livesElement.innerHTML = this.player.lives;
+    this.scoreElement.innerHTML = this.score;
 }
