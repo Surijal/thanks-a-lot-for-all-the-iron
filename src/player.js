@@ -14,7 +14,7 @@ function Player( canvas, lives ) {
     
     this.groundHeight = 76;
     //this.y = 600;  
-    this.y = this.canvasHeight - this.groundHeight -this.sizeHeight;
+    this.y = this.canvasHeight - this.groundHeight - this.sizeHeight;
 
 
     this.jumping = true;
@@ -29,24 +29,19 @@ function Player( canvas, lives ) {
 // defining Player prototype movement
 Player.prototype.setDirection = function ( direction ) {
 
-   
-
-
-
+    this.direction
 
     if ( direction === 'up' && this.jumping == false ) {  
          // direction up,jump
-        this.yVelocity -= 100;
-        this.y -= this.speed;
+        this.yVelocity -= 20;
         this.jumping = true;
-        this.y -=  (this.speed * 2);
+        
     } 
-    
-    
     
     if ( direction === 'left') { // direction left move
         this.xVelocity -= 0.5;
         this.x -= this.speed;
+        this.jumping = false;
     }
     
     if ( direction === 'right' ) {  // direction right move
@@ -54,17 +49,21 @@ Player.prototype.setDirection = function ( direction ) {
         this.x += this.speed;
     }
     
-    var gravity =  this.yVelocity += 15; // gravity
+    this.yVelocity += 1.5; // gravity
     this.x += this.xVelocity;
-    this.y += ( this.canvasHeight - this.yVelocity - this.sizeHeight - this.groundHeight ) ;
+    this.y -=  this.canvasHeight - this.yVelocity - this.sizeHeight - this.groundHeight ;
+    this.xVelocity *= 0.9; //friction
+    this.yVelocity *= 0.9; // friction
 
-    
-    if ( this.y > this.canvasHeight - this.groundHeight  ) {      
+    if ( this.y > this.canvasHeight - this.groundHeight - this.sizeHeight ) {      
          // prevent player falling through ground
         this.jumping = false;
-        this.y = ( this.canvasHeight - this.sizeHeight - this.groundHeight );
+        this.y = this.canvasHeight - this.sizeHeight - this.groundHeight ;
         this.yVelocity = 0;
+        
     }
+
+    
     
 }
 
@@ -73,7 +72,8 @@ Player.prototype.bottomCollision = function () {
         this.y = this.y + this.yVelocity + this.direction;
         var bottom = this.canvasHeight - this.groundHeight - this.sizeHeight;
         
-        if ( this.y > bottom) this.y = this.bottom;
+        if ( this.y > bottom) this.y = bottom;
+        
 }
 
 // remove live prototype
@@ -85,6 +85,6 @@ Player.prototype.removeLive = function() {
 Player.prototype.draw = function() {
     this.ctx.fillStyle = '#33FFF0'; // color property
     // defining player x position, player y position, player width, player height
-    this.ctx.fillRect(this.x , this.y, this.sizeWidth, this.sizeHeight); 
+    this.ctx.fillRect(this.x += this.xVelocity, this.y += this.yVelocity, this.sizeWidth, this.sizeHeight); 
 }
 
