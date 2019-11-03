@@ -4,69 +4,69 @@
 function Player( canvas, lives, ironbar ) {
     this.canvas = canvas; //define canvas Player property
     this.ctx = this.canvas.getContext('2d'); // defining player canvas Context as 2d
+    //enviroment calculation
     this.canvasHeight = this.canvas.height;
     this.groundHeight = 76;
-    this.lives = lives; // defining lives property
+    // Gamestats
+    this.lives = lives; 
     this.ironbar = ironbar;
-
-    this.sizeWidth = 32;    // defining playerWidth
-    this.sizeHeight = 32;  // defining playerHeight
-    this.x = 50;    // defining player X default position
-    // defining player Y default position
-    
-    
-    //this.y = 600;  
-    this.y = this.canvasHeight - this.groundHeight - this.sizeHeight;
-
-
-    this.jumping = true;
+    // player size
+    this.sizeWidth = 32;    
+    this.sizeHeight = 32;  
+    // Movement default values
     this.xVelocity = 0;
     this.yVelocity = 0;
-
+    this.maxVelocity = 6;
+    this.speed = 4;
+    this.jumpSpeed = 3;
+    // enviroment default movement value
+    this.inertia = 0.89;
+    this.gravity = 0.35;
+    // default positions
+    this.jumping = false;
+    this.onTheGround = true;
     this.direction = 0;
-    this.speed = 8;
-
+    this.groundLevel = this.canvas.height - this.groundHeight - this.sizeHeight;
+    // player default position
+    this.x = 50;    
+    this.y = this.groundLevel;
 }
 
 // defining Player prototype movement
-Player.prototype.setDirection = function ( direction ) {
+Player.prototype.movement = function ( direction ) {
 
-    
-
-    if ( direction === 'up' && this.jumping == false ) {  
-         // direction up,jump
-        this.yVelocity -= 20;
-        this.jumping = true;
-        
-    } 
-    
     if ( direction === 'left') { // direction left move
-        this.xVelocity -= 0.5;
-        this.x -= this.speed;
-        this.jumping = false;
+        if ( this.xVelocity > -this.speed ){
+            this.xVelocity--;
+            this.x--;
+        }
     }
     
     if ( direction === 'right' ) {  // direction right move
-        this.xVelocity += 0.5;
-        this.x += this.speed;
+        if ( this.xVelocity < +this.speed ) {
+            this.xVelocity++;
+            this.x++;
+        }
     }
     
-    this.yVelocity += 1.5; // gravity
-    this.x += this.xVelocity;
-    this.y -=  this.canvasHeight - this.yVelocity - this.sizeHeight - this.groundHeight ;
-    this.xVelocity *= 0.9; //friction
-    this.yVelocity *= 0.9; // friction
-
-    if ( this.y > this.canvasHeight - this.groundHeight - this.sizeHeight ) {      
-         // prevent player falling through ground
-        this.jumping = false;
-        this.y = this.canvasHeight - this.sizeHeight - this.groundHeight ;
-        this.yVelocity = 0;
-        
+    if ( direction === 'up'  ) {
+        this.yVelocity = -this.maxVelocity;
+        this.jumping = true;
+        this.onTheGround = false;
     }
 
-    
-    
+    if ( this.jumping === true ) {
+        this.yVelocity += this.gravity;
+        this.yVelocity *= this.inertia;
+        this.y += this.yVelocity;
+
+        for ( var i = 0; i < this.groundLevel; i++ ) {
+            if ( this.y >= this.groundLevel && this.y <= (this.groundLevel - 100)) {
+                this.jumping = false;
+                this.onTheGround = true;
+            }
+        }
+    }    
 }
 
 // bottomCollision prototype
@@ -75,7 +75,6 @@ Player.prototype.bottomCollision = function () {
         var bottom = this.canvasHeight - this.groundHeight - this.sizeHeight;
         
         if ( this.y > bottom) this.y = bottom;
-        
 }
 
 Player.prototype.didCollideSpikedEnemy = function ( SpikedEnemy ) {

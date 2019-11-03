@@ -48,24 +48,26 @@ Game.prototype.start = function() {
     //define function move player keydown
     this.handleKeyDown = function ( event ) {
         if (event.key === 'ArrowUp') {
-            this.player.setDirection('up');
-        
+            this.player.movement('up');
         }
         if ( event.key === 'ArrowRight' ) {
-            this.player.setDirection('right');
+            this.player.movement('right');
         }
         if ( event.key === 'ArrowLeft' ) {
-            this.player.setDirection('left');
+            this.player.movement('left');
         }
-        
     };
 
-    // define function move player  keyDown
+    // define function move player  keyup
     this.handleKeyUp = function ( event ) {
+        // this.player.movement(event) = true;
+        
+        /*
         if ( event.key === 'ArrowUp' ) {
+        this.player.movement('noUp'); 
 
         }
-
+        */
     };
 
     
@@ -200,7 +202,7 @@ Game.prototype.removeGameScreen = function() {
 
 //Update Game stats
 Game.prototype.updateGameStats = function() {
-    this.score +=1;
+    this.score;
     this.livesElement.innerHTML = this.player.lives;
     this.scoreElement.innerHTML = this.score;
     this.ironbarElement.innerHTML = this.player.ironbar;
