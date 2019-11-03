@@ -4,15 +4,19 @@
 function Game() {
     this.canvas = null; //add canvas property
     this.ctx = null;    //add ctx property
-
+    
     // add enemy property
     // add player property
-    this.player = 0;
-
+    this.player = null;
+    this.enemies = [];
+    
+    
     this.gameScreen = null;
+    
+    this.score = 0;
 }
 
-// defining Game prototype function
+// defining Game Start  prototype function
 Game.prototype.start = function() {
     this.canvasContainer = document.querySelector('.canvas-container'); // get canvas-container
     this.canvas = document.querySelector('canvas'); // get canvas
@@ -24,8 +28,12 @@ Game.prototype.start = function() {
     this.canvas.setAttribute('width', this.containerWidth ); // adding width attribute to containerWidth
     this.canvas.setAttribute('height', this.containerHeight ); // adding height attribute to containerHeight
 
+    this.enemySpawn = this.canvas.width;
     //create new Player in the prototype, canvas and 3 Lives
     this.player = new Player( this.canvas, 3);
+
+    
+    
 
     // create new Ground
     this.ground = new Ground (this.canvas );
@@ -47,7 +55,9 @@ Game.prototype.start = function() {
 
     // define function move player  keyDown
     this.handleKeyUp = function ( event ) {
-        
+        if ( event.key === 'ArrowUp' ) {
+
+        }
 
     };
 
@@ -65,25 +75,67 @@ Game.prototype.start = function() {
 // defining Game prototype startLoop function
 Game.prototype.startLoop = function() {
     var loop = function() {
-
         
+        
+        // random enemy create
+        
+        if ( Math.random() > 0.98 ) {
+            var random =  768 * Math.random();
+            console.log(random);
+            var startX = this.enemySpawn - 100;
+            this.enemies.push(new SpikedEnemy(this.canvas, startX, 3, random));
+                console.log(this.enemies[0]);
+                
+        };
+        
+    
+                
+       
         // bottomCollision call
-       this.player.bottomCollision();
+        this.player.bottomCollision();
 
+        // enemies update
+        
+        
+        
+        
         // Clear the canvas
         this.ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height );
-
+        
         //  Update the canvas
         //  draw the player call the prototype function
-       
+        
+        //draw player
         this.player.draw();
+        
+        
         // draw the Ground
         this.ground.drawGround();
+        
+        this.enemies = this.enemies.filter(function (one) {
+            one.updatePosition();
+            return one.insideScreen();
+        });
 
         
-        console.log(this.player);
 
+         // draw enemy
+        this.enemies.forEach(function( item ) { 
+            item.drawSpikedEnemy();
+            
+        });
+        
+
+       
+
+        
+        
+
+        
+    
         console.log('in loop'); // control log to see if game is in loop
+
+        
 
         window.requestAnimationFrame(loop);
     }.bind(this);

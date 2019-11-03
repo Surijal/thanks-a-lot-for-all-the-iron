@@ -5,6 +5,7 @@ function Player( canvas, lives ) {
     this.canvas = canvas; //define canvas Player property
     this.ctx = this.canvas.getContext('2d'); // defining player canvas Context as 2d
     this.canvasHeight = this.canvas.height;
+    this.groundHeight = 76;
     this.lives = lives; // defining lives property
 
     this.sizeWidth = 32;    // defining playerWidth
@@ -12,7 +13,7 @@ function Player( canvas, lives ) {
     this.x = 50;    // defining player X default position
     // defining player Y default position
     
-    this.groundHeight = 76;
+    
     //this.y = 600;  
     this.y = this.canvasHeight - this.groundHeight - this.sizeHeight;
 
@@ -29,7 +30,7 @@ function Player( canvas, lives ) {
 // defining Player prototype movement
 Player.prototype.setDirection = function ( direction ) {
 
-    this.direction
+    
 
     if ( direction === 'up' && this.jumping == false ) {  
          // direction up,jump
