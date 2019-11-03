@@ -77,6 +77,28 @@ Player.prototype.bottomCollision = function () {
         
 }
 
+Player.prototype.didCollideSpikedEnemy = function ( SpikedEnemy ) {
+    var playerLeft = this.x;
+    var playerRight = this.x + this.sizeWidth;
+    var playerTop = this.y;
+    var playerBottom = this.y + this.sizeHeight;
+
+    var SpikedEnemyLeft = SpikedEnemy.x;
+    var SpikedEnemyRight = SpikedEnemy.x + SpikedEnemy.spikedEnemyWidth;
+    var SpikedEnemyTop = SpikedEnemy.y;
+    var SpikedEnemyBottom = SpikedEnemy.y + SpikedEnemy.spikedEnemyHeight;
+
+    var crossRight = SpikedEnemyLeft <= playerRight && SpikedEnemyLeft >= playerLeft;
+    var crossLeft = SpikedEnemyRight >= playerLeft && SpikedEnemyRight <= playerRight;
+    var crossTop = SpikedEnemyBottom >= playerTop && SpikedEnemyBottom <= playerBottom;
+    var crossBottom = SpikedEnemyTop <= playerBottom && SpikedEnemyTop >= playerTop;
+
+    if ( (crossRight || crossLeft) && (crossBottom || crossTop) ) {
+        return true;
+    }
+    return false;
+};
+
 // remove live prototype
 Player.prototype.removeLive = function() {
     this.lives -= 1;

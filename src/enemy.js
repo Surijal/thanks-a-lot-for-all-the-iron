@@ -9,8 +9,8 @@ function SpikedEnemy ( canvas, x, speed, random) {
     this.groundHeight = 76;
     this.random = random;
 
-    this.spikedEnemyHeight = 50;
-    this.spikedEnemyWidth = 50;
+    this.spikedEnemyHeight = 25;
+    this.spikedEnemyWidth = 32;
 
     this.speed = speed;
     this.y = this.canvasHeight - this.groundHeight - this.spikedEnemyHeight;

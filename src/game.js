@@ -81,16 +81,17 @@ Game.prototype.startLoop = function() {
         
         if ( Math.random() > 0.98 ) {
             var random =  768 * Math.random();
-            console.log(random);
+            
             var startX = this.enemySpawn - 100;
-            this.enemies.push(new SpikedEnemy(this.canvas, startX, 3, random));
-                console.log(this.enemies[0]);
+
+            this.enemies.push(new SpikedEnemy(this.canvas, startX, 1.5, random));
                 
         };
         
-    
-                
-       
+        
+        // call collision check
+        this.checkCollisions();
+
         // bottomCollision call
         this.player.bottomCollision();
 
@@ -141,4 +142,16 @@ Game.prototype.startLoop = function() {
     }.bind(this);
 
     window.requestAnimationFrame(loop);
+};
+
+Game.prototype.checkCollisions = function () {
+    this.enemies.forEach(function(SpikedEnemy){
+        if (this.player.didCollideSpikedEnemy(SpikedEnemy)){
+            this.player.removeLive();
+
+            SpikedEnemy.x = 0 - SpikedEnemy.SpikedEnemyHeight / 2;
+
+            
+        }
+    }, this);
 }
