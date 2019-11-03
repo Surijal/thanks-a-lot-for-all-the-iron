@@ -69,24 +69,61 @@ function main () {
         game.removeGameScreen();
     }
 
-    // Funvtion GameOverScreen - placeholder to load, modifie comment after
+    // Funvtion GameOverScreen
+    function createGameOverScreen(score) {
+        gameOverScreen = buildDom(
+            `
+            <main>
+                <h1>Game over</h1>
+                <p>Your score:
+                    <span>
+                    </span>
+                </p>
+                <button>Restart</button>
+            </main>
+            `
+        );
+        var button = gameOverScreen.querySelector('button');
+        button.addEventListener('click', startGame );
+
+        var span = gameOverScreen.querySelector('span');
+        span.innerHTML = score;
+
+        document.body.appendChild(gameOverScreen);
+    }
+
+    //function remove Gameoverscreen
+    function removeGameOverScreen () {
+        if (gameOverScreen) {
+            gameOverScreen.remove();
+        }
+    }
 
     // Starting the Game
     function startGame() {
         removeSplashScreen(); // removing SplashScreen to load gameScreen after
 
-        //removeGameOverScreen(); // remove te GameOverScreen in case game is restartet from GameOverScreen
+        //removeGameOverScreen in case game is restartet from GameOverScreen
+        removeGameOverScreen();
 
         game = new Game(); // creating new instance of the game
 
-        game.gameScreen =createGameScreen(); // call the createGameScreen function to attach gameScreen to index.html
+        game.gameScreen = createGameScreen(); // call the createGameScreen function to attach gameScreen to index.html
 
         game.start();
 
-        //End the game, define gameOver later
-
-        
+        //End the game
+        game.passGameOverCallback(function() {
+            gameOver(game.score);
+        });
     }
+
+    function gameOver (score) {
+        removeGameScreen();
+        createGameOverScreen(score);
+    }
+
+    
 
 
     // initializing SplashScreen for first GameStart

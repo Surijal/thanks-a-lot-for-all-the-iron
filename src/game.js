@@ -10,7 +10,7 @@ function Game() {
     this.player = null;
     this.enemies = [];
     
-    
+    this.gameIsOver = false;
     this.gameScreen = null;
     
     this.score = 0;
@@ -27,10 +27,11 @@ Game.prototype.start = function() {
     this.containerHeight = this.canvasContainer.offsetHeight;   // defining canvas height
     this.canvas.setAttribute('width', this.containerWidth ); // adding width attribute to containerWidth
     this.canvas.setAttribute('height', this.containerHeight ); // adding height attribute to containerHeight
-
+    this.groundHeight = 76;
+    this.groundLevel = this.canvas.height - this.groundHeight;
     this.enemySpawn = this.canvas.width;
-    //create new Player in the prototype, canvas and 3 Lives
-    this.player = new Player( this.canvas, 3);
+    //create new Player in the prototype, canvas and 8 Lives
+    this.player = new Player( this.canvas, 8);
 
     
     
@@ -82,7 +83,7 @@ Game.prototype.startLoop = function() {
         if ( Math.random() > 0.98 ) {
             var random =  768 * Math.random();
             
-            var startX = this.enemySpawn - 100;
+            var startX = this.enemySpawn;
 
             this.enemies.push(new SpikedEnemy(this.canvas, startX, 1.5, random));
                 
@@ -127,7 +128,9 @@ Game.prototype.startLoop = function() {
         });
         
 
-       
+        if (!this.gameIsOver) {
+            window.requestAnimationFrame(loop);
+        }
 
         
         
@@ -149,9 +152,28 @@ Game.prototype.checkCollisions = function () {
         if (this.player.didCollideSpikedEnemy(SpikedEnemy)){
             this.player.removeLive();
 
-            SpikedEnemy.x = 0 - SpikedEnemy.SpikedEnemyHeight / 2;
+            SpikedEnemy.y = this.groundLevel - (SpikedEnemy.spikedEnemyHeight / 2);
 
-            
+            if (this.player.lives === 0) {
+                this.gameOver();
+            }   
         }
     }, this);
+}
+
+//GameOver Callback 
+Game.prototype.passGameOverCallback = function (callback) {
+    this.onGameOverCallback = callback;
+}
+
+Game.prototype.gameOver = function() {
+    this.gameIsOver = true;
+
+    this.onGameOverCallback();
+}
+
+//Prototype remove GameScreen
+
+Game.prototype.removeGameScreen = function() {
+    this.gameScreen.remove();
 }
