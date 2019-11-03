@@ -13,6 +13,7 @@ function Game() {
     this.gameIsOver = false;
     this.gameScreen = null;
     
+    this.ironbar = 0;
     this.score = 0;
 }
 
@@ -21,9 +22,10 @@ Game.prototype.start = function() {
     this.canvasContainer = document.querySelector('.canvas-container'); // get canvas-container
     this.canvas = document.querySelector('canvas'); // get canvas
     this.ctx = this.canvas.getContext('2d'); // defining Canvas Context 2d
-    //saving lives and score to the html
+    //saving lives, ironbar and score to the html
     this.livesElement =  this.gameScreen.querySelector('.lives .value');
     this.scoreElement = this.gameScreen.querySelector('.score .value');
+    this.ironbarElement = this.gameScreen.querySelector('.ironbar .value');
 
     // defining the canvas viewport
     this.containerWidth = this.canvasContainer.offsetWidth; // defining canvas width

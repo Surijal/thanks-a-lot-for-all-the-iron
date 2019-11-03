@@ -48,6 +48,9 @@ function main () {
                     <span class="label">Lives:</span>
                     <span class="value"></span>
                 </div>
+                <div class="ironbar">
+                    <span class="label">Ironbars:</span>
+                    <span class="value"></span>
                 <div class="score">
                     <span class="label">Score:</span>
                     <span class="value"></span>
