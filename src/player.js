@@ -1,12 +1,13 @@
 'use strict';
 
 // defining Player function, canvas and lives
-function Player( canvas, lives ) {
+function Player( canvas, lives, ironbar ) {
     this.canvas = canvas; //define canvas Player property
     this.ctx = this.canvas.getContext('2d'); // defining player canvas Context as 2d
     this.canvasHeight = this.canvas.height;
     this.groundHeight = 76;
     this.lives = lives; // defining lives property
+    this.ironbar = ironbar;
 
     this.sizeWidth = 32;    // defining playerWidth
     this.sizeHeight = 32;  // defining playerHeight
@@ -98,6 +99,34 @@ Player.prototype.didCollideSpikedEnemy = function ( SpikedEnemy ) {
     }
     return false;
 };
+
+Player.prototype.collectIronbar = function ( Ironbars ) {
+    var playerLeft = this.x;
+    var playerRight = this.x + this.sizeWidth;
+    var playerTop = this.y;
+    var playerBottom = this.y + this.sizeHeight;
+
+    var IronbarsLeft = Ironbars.x;
+    var IronbarsRight = Ironbars.x + Ironbars.IronbarsWidth;
+    var IronbarsTop = Ironbars.y;
+    var IronbarsBottom = Ironbars.y + Ironbars.IronbarsHeight;
+
+    var crossRight = IronbarsLeft <= playerRight && IronbarsLeft >= playerLeft;
+    var crossLeft = IronbarsRight >= playerLeft && IronbarsRight <= playerRight;
+    var crossTop = IronbarsBottom >= playerTop && IronbarsBottom <= playerBottom;
+    var crossBottom = IronbarsTop <= playerBottom && IronbarsTop >= playerTop;
+
+    if ( (crossRight || crossLeft) && (crossBottom || crossTop) ) {
+        return true;
+    }
+    return false;
+};
+
+
+//add Ironbars prototype
+Player.prototype.addIronbar = function () {
+    this.ironbar += 1;
+}
 
 // remove live prototype
 Player.prototype.removeLive = function() {

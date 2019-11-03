@@ -37,7 +37,7 @@ Game.prototype.start = function() {
     this.groundLevel = this.canvas.height - this.groundHeight;
     this.spawn = this.canvas.width;
     //create new Player in the prototype, canvas and 8 Lives
-    this.player = new Player( this.canvas, 8);
+    this.player = new Player( this.canvas, 8, 0);
 
     
     
@@ -94,7 +94,7 @@ Game.prototype.startLoop = function() {
             var randomGood = 2 * Math.random();
             var startXGood = this.spawn;
 
-            this.goods.push(new Ironbars(this.canvas, startXGood, 0.5, randomGood ));
+            this.goods.push(new Ironbars(this.canvas, startXGood, 0.25, randomGood ));
         };
         // call collision check
         this.checkCollisions();
@@ -168,6 +168,16 @@ Game.prototype.checkCollisions = function () {
                 this.gameOver();
             }   
         }
+
+    }, this);
+
+    this.goods.forEach(function(Ironbars) {
+        if (this.player.collectIronbar(Ironbars)){
+            this.player.addIronbar();
+
+            Ironbars.y = 0;
+        }
+
     }, this);
 }
 
@@ -193,5 +203,5 @@ Game.prototype.updateGameStats = function() {
     this.score +=1;
     this.livesElement.innerHTML = this.player.lives;
     this.scoreElement.innerHTML = this.score;
-    this.ironbarElement.innerHTML = this.ironbar;
+    this.ironbarElement.innerHTML = this.player.ironbar;
 }
