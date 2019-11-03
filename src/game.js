@@ -165,12 +165,15 @@ Game.prototype.checkCollisions = function () {
             this.player.removeLive();
 
             SpikedEnemy.y = this.groundLevel - (SpikedEnemy.spikedEnemyHeight);
-
+            
             if (this.player.lives === 0) {
                 this.gameOver();
             }   
+        } else if ( SpikedEnemy.x < this.player.x ) {
+            for ( var i = 0; i < 1; i++) {
+                this.score += 100;
+            }
         }
-
     }, this);
 
     this.goods.forEach(function(Ironbars) {
