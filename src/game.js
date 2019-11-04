@@ -48,7 +48,8 @@ Game.prototype.start = function() {
     //define function move player keydown
     this.handleKeyDown = function ( event ) {
         if (event.key === 'ArrowUp') {
-            this.player.movement('up');
+            this.player.jumping = true;
+            this.player.direction = -1;
         }
         if ( event.key === 'ArrowRight' ) {
             this.player.movement('right');
@@ -75,7 +76,7 @@ Game.prototype.start = function() {
     //add eventlistener to keyDown
     document.body.addEventListener('keydown', this.handleKeyDown.bind(this));
     //add eventlistener to keyUp
-    document.body.addEventListener('keyup', this.handleKeyUp.bind(this) );
+    //document.body.addEventListener('keyup', this.handleKeyUp.bind(this) );
     
     // call startLoop - starting the game Loop
     this.startLoop();
@@ -102,7 +103,10 @@ Game.prototype.startLoop = function() {
         this.checkCollisions();
         // bottomCollision call
         this.player.bottomCollision();
-        // enemies update
+        // jumpHeight
+        this.player.updatePlayerDirection();
+
+        //this.player.updatePlayerPosition();
         
         
         
@@ -151,7 +155,6 @@ Game.prototype.startLoop = function() {
         // Update Game Stats
         this.updateGameStats();
     
-        console.log('in loop'); // control log to see if game is in loop
 
         //window.requestAnimationFrame(loop);
     }.bind(this);
