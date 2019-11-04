@@ -47,15 +47,17 @@ Game.prototype.start = function() {
 
     //define function move player keydown
     this.handleKeyDown = function ( event ) {
-        if (event.key === 'ArrowUp') {
-            this.player.jumping = true;
+        if (event.key === 'ArrowUp' &&                      this.player.jumping !== true ) {
             this.player.direction = -1;
+            this.player.jumping = true;
         }
-        if ( event.key === 'ArrowRight' ) {
+        if ( event.key === 'ArrowRight' &&                      this.player.jumping !== true) {
+            this.player.direction = this.x -1;
             this.player.movement('right');
         }
-        if ( event.key === 'ArrowLeft' ) {
-            this.player.movement('left');
+        if ( event.key === 'ArrowLeft' ) {              //this.player.jumping !== true) {
+            this.player.direction = -2;
+            //this.player.movement('left');
         }
     };
 

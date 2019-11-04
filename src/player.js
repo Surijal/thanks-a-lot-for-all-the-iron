@@ -14,15 +14,15 @@ function Player( canvas, lives, ironbar ) {
     this.sizeWidth = 30;    
     this.sizeHeight = 30;  
     // Movement default values
-    var xVelocity = 1;
-    var yVelocity = 1;
+    this.xVelocity = 1;
+    this.yVelocity = 1;
     this.maxVelocity = 6;
     this.speed = 4;
     this.jumpSpeed = 3;
     this.jumpHeight = 175;
     // enviroment default movement value
-    var inertia = 1.000008;
-    var gravity = 0.998;
+    this.inertia = 1.000008;
+    this.gravity = 0.998;
     // default positions
     this.jumping = false;
     this.onTheGround = true;
@@ -41,16 +41,26 @@ Player.prototype.movement = function () {
     var gravity = 0.35;
 
 
-    if (this.direction === -1 ) {
+    
+    
+    if (this.direction === -1  ) {
         console.log("UP");
         this.y -= 3;
         //this.y += gravity;
     }
     else if (this.direction === 1) {
-       // debugger;
+        // debugger;
         console.log("DOWN");
         this.y += 3;
         //this.y *= inertia;
+    }
+    else if (this.direction === -1){
+        this.x += 3;
+    }
+    
+    else if ( this.direction === -2){
+        console.log('left');
+        this.x -=3;
     }
 
 }
@@ -128,7 +138,8 @@ Player.prototype.bottomCollision = function () {
         
         if ( this.y > bottom ) {
             this.y = bottom;
-            this.y -= yVelocity;
+            this.y -= this.yVelocity;
+            this.jumping = false;
             }
     }
 
@@ -142,7 +153,12 @@ Player.prototype.updatePlayerDirection = function () {
     if (this.jumping === false) {
         return;
     }
+    if ( this.direction === -2 ) {
+        this.setDirection('left');
+        this.movement();
+    }
     
+
     if ( playerCrossesJumpLine || this.direction === 1) {
         this.setDirection("down");
         this.movement();
@@ -163,7 +179,7 @@ Player.prototype.setDirection = function (direction) {
         this.direction = -1;
     }
     if ( direction === 'left') {
-        this.direction = -1;
+        this.x = -1;
     }
 
 }
