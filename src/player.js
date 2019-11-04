@@ -37,12 +37,6 @@ function Player( canvas, lives, ironbar ) {
 
 Player.prototype.movement = function () {
 
-    var inertia = 0.98;
-    var gravity = 0.35;
-
-
-    
-    
     if (this.direction === -1  ) {
         console.log("UP");
         this.y -= 3;
@@ -54,14 +48,14 @@ Player.prototype.movement = function () {
         this.y += 3;
         //this.y *= inertia;
     }
-    else if (this.direction === -1){
-        this.x += 3;
-    }
+    // else if (this.direction === -1){
+    //     this.x += 3;
+    // }
     
-    else if ( this.direction === -2){
-        console.log('left');
-        this.x -=3;
-    }
+    // else if ( this.direction === -2){
+    //     console.log('left');
+    //     this.x -=3;
+    // }
 
 }
 
@@ -146,25 +140,13 @@ Player.prototype.bottomCollision = function () {
 //jump collision prototype
 Player.prototype.updatePlayerDirection = function () {
     var jumpLine = this.groundLevel - this.jumpHeight;
-    
     var playerCrossesJumpLine = this.y <= jumpLine;
-
-
-    if (this.jumping === false) {
-        return;
-    }
-    if ( this.direction === -2 ) {
-        this.setDirection('left');
-        this.movement();
-    }
-    
 
     if ( playerCrossesJumpLine || this.direction === 1) {
         this.setDirection("down");
         this.movement();
         
-    }
-    else if (!playerCrossesJumpLine && this.direction === -1){
+        } else if (!playerCrossesJumpLine && this.direction === -1){
         this.setDirection("up");
         this.movement();
         
@@ -179,9 +161,10 @@ Player.prototype.setDirection = function (direction) {
         this.direction = -1;
     }
     if ( direction === 'left') {
-        this.x = -1;
+        this.direction = -2;
+        this.x -= this.speed;
     }
-
+    if ( direction === 'right') this.x += this.speed;
 }
 
 Player.prototype.updatePlayerPosition = function ( ) {
