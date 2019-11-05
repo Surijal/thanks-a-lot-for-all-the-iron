@@ -3,7 +3,7 @@
 // defining Game properties 
 function Game() {
     this.canvas = null; //add canvas property
-    this.ctx = null;    //add ctx property
+    this.ctx = false;    //add ctx property
     
     // add enemy property
     // add player property
@@ -16,7 +16,19 @@ function Game() {
     
     this.ironbar = 0;
     this.score = 0;
+
+
+var frameRate = 1/40; // Seconds
+var frameDelay = frameRate * 1000; // ms
+var loopTimer = false;
+
+var Cd = 0.47;  // Dimensionless
+var rho = 1.22; // kg / m^3
+//var A = Math.PI * this.player.radius * this.player.radius / (10000); // m^2
+var ag = 9.81;  // m / s^2
 }
+
+
 
 // defining Game Start  prototype function
 Game.prototype.start = function() {
@@ -37,7 +49,7 @@ Game.prototype.start = function() {
     this.groundLevel = this.canvas.height - this.groundHeight;
     this.spawn = this.canvas.width;
     //create new Player in the prototype, canvas and 8 Lives
-    this.player = new Player( this.canvas, 8, 0);
+    this.player = new Player( this.canvas, 8, 0, 0);
 
     
     
@@ -98,6 +110,8 @@ Game.prototype.startLoop = function() {
 
             this.goods.push(new Ironbars(this.canvas, startXGood, 0.25, randomGood ));
         };
+
+        this.player.topCollision();
         // call collision check
         this.checkCollisions();
         // bottomCollision call
@@ -108,15 +122,15 @@ Game.prototype.startLoop = function() {
         
         
         // Clear the canvas
-        this.ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height );
+        this.ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height);
         
         //  Update the canvas
-        //  draw the player call the prototype function
+         //draw the player call the prototype function
         
         //draw player
         this.player.draw();
         
-        
+        //this.player.updatePositionPlayer();
         // draw the Ground
         this.ground.drawGround();
         
@@ -131,7 +145,7 @@ Game.prototype.startLoop = function() {
         })
 
         
-
+        
          // draw enemy
         this.enemies.forEach(function( item ) { 
             item.drawSpikedEnemy();
@@ -151,8 +165,8 @@ Game.prototype.startLoop = function() {
         // Update Game Stats
         this.updateGameStats();
     
-        console.log('in loop'); // control log to see if game is in loop
-
+       // console.log('in loop'); // control log to see if game is in loop
+       
         //window.requestAnimationFrame(loop);
     }.bind(this);
 
@@ -160,30 +174,41 @@ Game.prototype.startLoop = function() {
 };
 
 Game.prototype.checkCollisions = function () {
-    this.enemies.forEach(function(SpikedEnemy){
-        if (this.player.didCollideSpikedEnemy(SpikedEnemy)){
-            this.player.removeLive();
-
-            SpikedEnemy.y = this.groundLevel - (SpikedEnemy.spikedEnemyHeight);
-            
-            if (this.player.lives === 0) {
-                this.gameOver();
-            }   
-        } else if ( SpikedEnemy.x < this.player.x ) {
-            for ( var i = 0; i < 1; i++) {
-                this.score += 100;
+    
+    this.enemies.forEach(function (SpikedEnemy) {
+        if (this.player.enemyKilled(SpikedEnemy)) {
+            this.player.addScore();
+            console.log('is true ' + this.player.enemyKilled(SpikedEnemy));
+        }
+        else 
+        this.enemies.forEach(function(SpikedEnemy){
+            if (this.player.didCollideSpikedEnemy(SpikedEnemy)){
+                this.player.removeLive();
+    
+                SpikedEnemy.y = this.groundLevel + (SpikedEnemy.spikedEnemyHeight + 3);
+                
+                if (this.player.lives === 0) {
+                    this.gameOver();
+                    } 
+    
+                } 
+    
+        }, this);
+        
+        this.goods.forEach(function(Ironbars) {
+            if (this.player.collectIronbar(Ironbars)){
+                this.player.addIronbar();
+    
+                Ironbars.y = 0;
             }
-        }
-    }, this);
+    
+        }, this);
 
-    this.goods.forEach(function(Ironbars) {
-        if (this.player.collectIronbar(Ironbars)){
-            this.player.addIronbar();
 
-            Ironbars.y = 0;
-        }
 
-    }, this);
+
+
+    } ,this);
 }
 
 //GameOver Callback 
@@ -205,8 +230,19 @@ Game.prototype.removeGameScreen = function() {
 
 //Update Game stats
 Game.prototype.updateGameStats = function() {
-    this.score;
+    //this.score ++  ;
     this.livesElement.innerHTML = this.player.lives;
     this.scoreElement.innerHTML = this.score;
     this.ironbarElement.innerHTML = this.player.ironbar;
 }
+
+
+
+
+// PARKING LOT
+
+// else if ( SpikedEnemy.x < this.player.x ) {
+//     for ( var i = 0; i < 1; i++) {
+//         //this.score += 100;
+//     }
+// }

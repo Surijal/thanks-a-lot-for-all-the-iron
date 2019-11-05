@@ -13,6 +13,10 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+canvas {
+    border: 2px solid #900C3F; 
+}
+
 /* layout */
 
 html, body {
