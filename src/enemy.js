@@ -31,3 +31,4 @@ SpikedEnemy.prototype.updatePosition = function () {
 SpikedEnemy.prototype.insideScreen = function () {
     return this.x + this.spikedEnemyWidth / 2 > 0;
 }
+

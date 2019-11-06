@@ -23,3 +23,4 @@ Ground.prototype.drawGround = function() {
     this.ctx.lineTo ( this.canvas.width, this.groundY );
     this.ctx.stroke();
 }
+

@@ -1,7 +1,7 @@
 'use strict';
 
 // defining Player function, canvas and lives
-function Player( canvas, lives, ironbar, score ) {
+function Player( canvas, lives) {
     this.canvas = canvas; //define canvas Player property
     this.ctx = this.canvas.getContext('2d'); // defining player canvas Context as 2d
     //enviroment calculation
@@ -9,8 +9,6 @@ function Player( canvas, lives, ironbar, score ) {
     this.groundHeight = 76;
     // Gamestats
     this.lives = lives;     
-    this.ironbar = ironbar;
-    this.score = score;
     // player size
     this.sizeWidth = 32;    
     this.sizeHeight = 32;  
@@ -18,7 +16,7 @@ function Player( canvas, lives, ironbar, score ) {
     this.xVelocity = 0;
     this.yVelocity = 0;
     this.maxVelocity = 8;
-    this.speed = 1.8;
+    this.speed = 1.4;
     this.jumpSpeed = 10;
     this.jumpHeight = 550;
     // enviroment default movement value
@@ -38,7 +36,8 @@ function Player( canvas, lives, ironbar, score ) {
 
 // defining Player prototype movement
 Player.prototype.movement = function ( direction ) {
-
+    
+    
     if ( direction === 'left'  && this.jumping != true) { // direction left move
         if ( this.xVelocity > -this.speed ){
             // this.xVelocity--;
@@ -67,24 +66,30 @@ Player.prototype.movement = function ( direction ) {
         this.x -= this.xVelocity;
     }
 
-    if ( direction === 'up' && this.jumping != false) {
+     if ( direction === 'up'  && this.jumping != true ) {
+        console.log(this.yVelocity);
+   this.yVelocity = -this.maxVelocity   / 5;
+   this.jumping = true;
+   this.onTheGround = false;
+ }
+   else  if ( direction === 'up' && this.jumping != false ) {
+       
         this.yVelocity *= this.gravity;
         this.yVelocity += this.yVelocity;
         this.xVelocity *= this.gravity;
         this.x += this.xVelocity;
-        this.jumping = false;
-    }
+        console.log(this.yVelocity);
+        this.jumping =false;
+        }
+        
+   else if ( this.jumping  != false ) {
+       
+         this.yVelocity += this.gravity;
+         this.yVelocity *= this.inertia;
+         this.y += this.yVelocity;
+         this.jumping = false;
+        }
     
-    if ( direction === 'up'  && this.jumping != true ) {
-        this.yVelocity = -this.maxVelocity / 3;
-        this.jumping = true;
-        this.onTheGround = false;
-    }
-
-    else if ( this.jumping  != false ) {
-        this.yVelocity += this.gravity;
-        this.yVelocity *= this.inertia;
-        this.y += this.yVelocity;
 
         // for ( var i = 0; i < 400; i++ ) {
         //     if ( this.y <= 400) {
@@ -92,7 +97,7 @@ Player.prototype.movement = function ( direction ) {
         //         this.onTheGround = true;
         //     }
         // }
-    }    
+        
 }
 
 //top collision
@@ -101,17 +106,51 @@ Player.prototype.topCollision = function () {
     if ( this.y < this.jumpHeight ) {
          this.yVelocity *= -this.inertia;
         this.y += this.yVelocity;
-        this.jumping = false;
+        this.jumping = false;   
         
     }
 }
 
 // bottomCollision prototype
 Player.prototype.bottomCollision = function () {
-        this.yVelocity =  + this.yVelocity + this.direction;
-        var bottom = this.groundLevel - this.sizeHeight;
-        
-        if ( this.y > bottom) this.y = bottom;
+    var bottom = this.groundLevel - this.sizeHeight;
+    var screenLeft = 0;
+    var screnRight = this.canvas.width - this.sizeWidth;
+    
+    // if ( this.y > bottom) {
+    //     this.yVelocity =  + this.yVelocity + this.direction;
+    //     this.y = bottom;
+    // }
+    if ( this.x < screenLeft ) {
+        this.xVelocity = 0;
+        this.y = bottom;
+    } 
+    if ( this.x >screnRight) {
+        this.xVelocity = 0;
+        this.y = bottom;   
+    } 
+}    
+    
+
+Player.prototype.playerScreenCollision = function () {
+    var screenLeft = this.x + this.sizeWidth;
+    var screnRight = this.canvas.width - this.sizeWidth;
+    var bottom = this.groundLevel - this.sizeHeight;
+    var screenTop = 0 +this.sizeHeight;
+    
+    if ( this.x < screenLeft ) {
+        this.x += this.xVelocity;
+        this.y = bottom;
+    } 
+    if ( this.x > screnRight ) {
+        this.direction -1;
+        this.y =bottom;
+    }
+
+    if (this.y < ( 0  + this.sizeHeight)){
+        this.yVelocity += this.yVelocity;
+        this.y += this.yVelocity;
+    }
 }
 
 Player.prototype.didCollideSpikedEnemy = function ( SpikedEnemy ) {
@@ -122,13 +161,13 @@ Player.prototype.didCollideSpikedEnemy = function ( SpikedEnemy ) {
 
     var SpikedEnemyLeft = SpikedEnemy.x;
     var SpikedEnemyRight = SpikedEnemy.x + SpikedEnemy.spikedEnemyWidth;
-    var SpikedEnemyTop = SpikedEnemy.y;
+    var SpikedEnemyTop = SpikedEnemy.y +10;
     var SpikedEnemyBottom = SpikedEnemy.y + SpikedEnemy.spikedEnemyHeight;
 
     var crossRight = SpikedEnemyLeft <= playerRight && SpikedEnemyLeft >= playerLeft;
     var crossLeft = SpikedEnemyRight >= playerLeft && SpikedEnemyRight <= playerRight;
     var crossTop = SpikedEnemyBottom >= playerTop && SpikedEnemyBottom <= playerBottom;
-    var crossBottom = SpikedEnemyTop <= playerBottom && SpikedEnemyTop >= playerTop;
+    var crossBottom = SpikedEnemyTop  < playerBottom ;
 
     if ( (crossRight || crossLeft) && crossBottom ) {  //&& (crossBottom || crossTop)
         return true;
@@ -136,16 +175,25 @@ Player.prototype.didCollideSpikedEnemy = function ( SpikedEnemy ) {
     return false;
 };
 
-Player.prototype.enemyKilled = function () {
+Player.prototype.enemyKilled = function (SpikedEnemy) {
     var playerBottom = this.y + this.sizeHeight;
+    var playerLeft = this.x;
+    var playerRight = this.x + this.sizeWidth;
 
-    var enemyTop = SpikedEnemy.spikedEnemyHeight;
+    var SpikedEnemyTop = SpikedEnemy.y;
+    var SpikedEnemyLeft = SpikedEnemy.x + 5;
+    var SpikedEnemyRight = SpikedEnemy.x + SpikedEnemy.spikedEnemyWidth - 5;
+    
+    var hitEnemy = playerBottom >= SpikedEnemyTop;
+    var crossLeft = SpikedEnemyRight >= playerLeft && SpikedEnemyLeft <= playerLeft;
+    var crossRight = SpikedEnemyRight >= playerRight && SpikedEnemyLeft <= playerRight;
+   
 
-    var playerHitEnemy = enemyTop <= playerBottom;
-
-    if ( playerHitEnemy ){
+    if ( hitEnemy && (crossLeft || crossRight)  ){
+        console.log('enemy killed');
         return true;
     }
+
     return false;
 }
 
@@ -172,14 +220,7 @@ Player.prototype.collectIronbar = function ( Ironbars ) {
 };
 
 
-//add Ironbars prototype
-Player.prototype.addIronbar = function () {
-    this.ironbar += 1;
-}
 
-Player.prototype.addScore = function (){
-    this.score += 250;
-}
 
 // remove live prototype
 Player.prototype.removeLive = function() {

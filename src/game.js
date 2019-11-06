@@ -59,9 +59,14 @@ Game.prototype.start = function() {
 
     //define function move player keydown
     this.handleKeyDown = function ( event ) {
-        if (event.key === 'ArrowUp') {
-            this.player.movement('up');
-        }
+        if (event.key === 'ArrowUp' && this.jumping != true  ) {    // 
+    
+            // for ( var i = 0; i < 30; i++) {
+                this.player.movement('up');
+            //return this.jumping = true;
+            console.log(this.player.yVelocity);
+        // }
+    }
         if ( event.key === 'ArrowRight' ) {
             this.player.movement('right');
         }
@@ -96,9 +101,10 @@ Game.prototype.start = function() {
 // defining Game prototype startLoop function
 Game.prototype.startLoop = function() {
     var loop = function() { 
+
         // random enemy create 
         if ( Math.random() > 0.98 ) {
-            var random =  768 * Math.random();
+            var random =  10 * Math.random();
             var startX = this.spawn;
 
             this.enemies.push(new SpikedEnemy(this.canvas, startX, 1.5, random));  
@@ -111,13 +117,28 @@ Game.prototype.startLoop = function() {
             this.goods.push(new Ironbars(this.canvas, startXGood, 0.25, randomGood ));
         };
 
+        
         this.player.topCollision();
         // call collision check
-        this.checkCollisions();
+        
         // bottomCollision call
         this.player.bottomCollision();
         // enemies update
+        this.player.playerScreenCollision();
         
+        
+        this.checkCollisions();
+        this.checkRewardCollisions();
+
+        this.enemies = this.enemies.filter(function (one) {
+            one.updatePosition();
+            return one.insideScreen();
+        });
+
+        this.goods = this.goods.filter(function (good) {
+            good.updatePositionIronbar();
+            return good.insideScreenW();
+        })
         
         
         
@@ -133,16 +154,6 @@ Game.prototype.startLoop = function() {
         //this.player.updatePositionPlayer();
         // draw the Ground
         this.ground.drawGround();
-        
-        this.enemies = this.enemies.filter(function (one) {
-            one.updatePosition();
-            return one.insideScreen();
-        });
-
-        this.goods = this.goods.filter(function (good) {
-            good.updatePositionIronbar();
-            return good.insideScreenW();
-        })
 
         
         
@@ -156,6 +167,8 @@ Game.prototype.startLoop = function() {
         this.goods.forEach(function(goodDraw){
             goodDraw.drawIronbars();
         });
+
+        
         
         // stop game if its over
         if (!this.gameIsOver) {
@@ -175,41 +188,44 @@ Game.prototype.startLoop = function() {
 
 Game.prototype.checkCollisions = function () {
     
-    this.enemies.forEach(function (SpikedEnemy) {
-        if (this.player.enemyKilled(SpikedEnemy)) {
-            this.player.addScore();
-            console.log('is true ' + this.player.enemyKilled(SpikedEnemy));
-        }
-        else 
-        this.enemies.forEach(function(SpikedEnemy){
-            if (this.player.didCollideSpikedEnemy(SpikedEnemy)){
+    this.enemies.forEach(function (spikedEnemy) {
+        if (this.player.enemyKilled(spikedEnemy)) {
+            console.log('score');
+            spikedEnemy.x = this.canvas.width + spikedEnemy.spikedEnemyWidth;
+            this.addScore();
+
+            
+        } 
+        else if (this.player.didCollideSpikedEnemy(spikedEnemy)) {
+                console.log('any' );
+                
                 this.player.removeLive();
-    
-                SpikedEnemy.y = this.groundLevel + (SpikedEnemy.spikedEnemyHeight + 3);
+                spikedEnemy.x = this.canvas.width + spikedEnemy.spikedEnemyWidth;
+
                 
                 if (this.player.lives === 0) {
                     this.gameOver();
-                    } 
-    
                 } 
+
+            } 
+        } ,this);
+
+    }
     
-        }, this);
-        
+    Game.prototype.checkRewardCollisions = function () {
         this.goods.forEach(function(Ironbars) {
+            
             if (this.player.collectIronbar(Ironbars)){
-                this.player.addIronbar();
+                this.addIronbar();
     
                 Ironbars.y = 0;
             }
     
         }, this);
+    }
 
 
 
-
-
-    } ,this);
-}
 
 //GameOver Callback 
 Game.prototype.passGameOverCallback = function (callback) {
@@ -236,13 +252,15 @@ Game.prototype.updateGameStats = function() {
     this.ironbarElement.innerHTML = this.player.ironbar;
 }
 
+//add Ironbars prototype
+Game.prototype.addIronbar = function () {
+    this.ironbar += 1;
+}
 
+Game.prototype.addScore = function (){
+    this.score += 250;
+}
 
 
 // PARKING LOT
 
-// else if ( SpikedEnemy.x < this.player.x ) {
-//     for ( var i = 0; i < 1; i++) {
-//         //this.score += 100;
-//     }
-// }
