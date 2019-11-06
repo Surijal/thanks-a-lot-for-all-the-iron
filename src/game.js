@@ -57,26 +57,10 @@ Game.prototype.start = function() {
     // create new Ground
     this.ground = new Ground (this.canvas );
 
-    //define function move player keydown
-    this.handleKeyDown = function ( event ) {
-        if (event.key === 'ArrowUp' && this.jumping != true  ) {    // 
-    
-            // for ( var i = 0; i < 30; i++) {
-                this.player.movement('up');
-            //return this.jumping = true;
-            console.log(this.player.yVelocity);
-        // }
-    }
-        if ( event.key === 'ArrowRight' ) {
-            this.player.movement('right');
-        }
-        if ( event.key === 'ArrowLeft' ) {
-            this.player.movement('left');
-        }
-    };
+
 
     // define function move player  keyup
-    this.handleKeyUp = function ( event ) {
+    // this.handleKeyUp = function ( event ) {
         // this.player.movement(event) = true;
         
         /*
@@ -85,14 +69,14 @@ Game.prototype.start = function() {
 
         }
         */
-    };
+    
 
     
 
-    //add eventlistener to keyDown
-    document.body.addEventListener('keydown', this.handleKeyDown.bind(this));
-    //add eventlistener to keyUp
-    document.body.addEventListener('keyup', this.handleKeyUp.bind(this) );
+    // //add eventlistener to keyDown
+    // document.body.addEventListener('keydown', this.handleKeyDown.bind(this));
+    // //add eventlistener to keyUp
+    // document.body.addEventListener('keyup', this.handleKeyUp.bind(this) );
     
     // call startLoop - starting the game Loop
     this.startLoop();
@@ -100,7 +84,11 @@ Game.prototype.start = function() {
 
 // defining Game prototype startLoop function
 Game.prototype.startLoop = function() {
+
+    document.body.addEventListener('keydown', this.handleKeyDown.bind(this));
+
     var loop = function() { 
+                  //add eventlistener to keyDown
 
         // random enemy create 
         if ( Math.random() > 0.98 ) {
@@ -117,14 +105,21 @@ Game.prototype.startLoop = function() {
             this.goods.push(new Ironbars(this.canvas, startXGood, 0.25, randomGood ));
         };
 
+        // this.handleKeyDown = function ( events ){
+            
+        //     if ( events.key === 'ArrowUP') {
+        //     this.player.jumpMovement( );
+        //     }
+        // } ;
+      
         
-        this.player.topCollision();
+        //this.player.topCollision();
         // call collision check
         
         // bottomCollision call
         this.player.bottomCollision();
         // enemies update
-        this.player.playerScreenCollision();
+        //this.player.playerScreenCollision();
         
         
         this.checkCollisions();
@@ -148,11 +143,15 @@ Game.prototype.startLoop = function() {
         //  Update the canvas
          //draw the player call the prototype function
         
+         //
+         this.player.jumpMovement();
+
         //draw player
         this.player.draw();
         
-        //this.player.updatePositionPlayer();
+        //this.player.updatePlayer();
         // draw the Ground
+        // this.plattformOne.draw();
         this.ground.drawGround();
 
         
@@ -169,22 +168,35 @@ Game.prototype.startLoop = function() {
         });
 
         
+        // Update Game Stats
+        this.updateGameStats();
         
         // stop game if its over
         if (!this.gameIsOver) {
             window.requestAnimationFrame(loop);
         }  
 
-        // Update Game Stats
-        this.updateGameStats();
-    
-       // console.log('in loop'); // control log to see if game is in loop
-       
-        //window.requestAnimationFrame(loop);
+
     }.bind(this);
 
     window.requestAnimationFrame(loop);
 };
+
+
+            //define function move player keydown
+             Game.prototype.handleKeyDown = function( event ) {
+                if (event.key === 'ArrowUp' ) {    
+                    this.player.direction = -1;
+                }
+
+                if ( event.key === 'ArrowRight' ) {
+                    this.player.movement('right');
+                }
+
+                if ( event.key === 'ArrowLeft' ) {
+                    this.player.movement('left');
+                }
+            };
 
 Game.prototype.checkCollisions = function () {
     

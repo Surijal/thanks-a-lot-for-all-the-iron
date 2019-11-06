@@ -16,14 +16,16 @@ function Player( canvas, lives) {
     this.xVelocity = 0;
     this.yVelocity = 0;
     this.maxVelocity = 8;
-    this.speed = 1.4;
+    this.speed = 35;
     this.jumpSpeed = 10;
     this.jumpHeight = 550;
     // enviroment default movement value
     this.inertia = 0.92;
-    this.gravity = 0.18;
-    // default positions
+    this.gravity = 0.35;
+    // default position
+    
     this.jumping = false;
+    
     this.onTheGround = true;
     this.direction = 0;
     this.currentX = 0;
@@ -31,84 +33,70 @@ function Player( canvas, lives) {
     this.groundLevel = this.canvas.height - this.groundHeight;
     // player default position
     this.x = 50;    
-    this.y = this.groundLevel;
+    this.y = this.groundLevel - this.sizeHeight;;
 }
 
 // defining Player prototype movement
+// called on keydown event only
 Player.prototype.movement = function ( direction ) {
-    
-    
-    if ( direction === 'left'  && this.jumping != true) { // direction left move
-        if ( this.xVelocity > -this.speed ){
-            // this.xVelocity--;
-            // this.currentX++;
-            this.xVelocity -= this.speed;
-            this.xVelocity *= this.inertia;
-            this.x -= this.xVelocity;
-        }
+    if ( direction === 'left' ) { // direction left move
+        this.x -= this.speed;        
+
     }
     
-    if ( direction === 'right'  && this.jumping != true) {  // direction right move
-        if ( this.xVelocity < this.speed ) {
-            this.xVelocity += this.speed;
-            this.xVelocity *= this.inertia;
-            this.x += this.xVelocity;
-        }
+    if ( direction === 'right' ) {  // direction right move
+        this.x += this.speed;    
+    }
+}
+
+// called in the loop each frame
+Player.prototype.jumpMovement = function() {
+    var playerWasGoingUp = this.direction === -1;
+
+    console.log("DIRECTION", this.direction);
+
+    if(this.isTouchingBottom() ) { // if player had touched bottom, set direction to zero
+        this.direction = 0;
+        this.y = this.groundLevel - this.sizeHeight;
     }
 
-    if ( direction === 'left' && this.jumping != false ) {
-        this.xVelocity *= this.gravity;
-        this.x -= this.xVelocity;
+    if(playerWasGoingUp && this.passedJumpLine()) {
+        this.direction = 1;
+
     }
 
-    if ( direction === 'right' && this.jumping != false ) {
-        this.xVelocity *= this.gravity;
-        this.x -= this.xVelocity;
+
+    if (this.direction === -1) { // if currently moving up
+        this.y -= 4;
     }
 
-     if ( direction === 'up'  && this.jumping != true ) {
-        console.log(this.yVelocity);
-   this.yVelocity = -this.maxVelocity   / 5;
-   this.jumping = true;
-   this.onTheGround = false;
- }
-   else  if ( direction === 'up' && this.jumping != false ) {
-       
-        this.yVelocity *= this.gravity;
-        this.yVelocity += this.yVelocity;
-        this.xVelocity *= this.gravity;
-        this.x += this.xVelocity;
-        console.log(this.yVelocity);
-        this.jumping =false;
-        }
-        
-   else if ( this.jumping  != false ) {
-       
-         this.yVelocity += this.gravity;
-         this.yVelocity *= this.inertia;
-         this.y += this.yVelocity;
-         this.jumping = false;
-        }
-    
+    if (this.direction === 1) { // if currently moving down
+        this.y += 4;
+    }
+}
 
-        // for ( var i = 0; i < 400; i++ ) {
-        //     if ( this.y <= 400) {
-        //         this.jumping = false;
-        //         this.onTheGround = true;
-        //     }
-        // }
-        
+Player.prototype.passedJumpLine = function () {
+    var playerTop = this.y;
+    var jumpLine = this.groundLevel - 150;
+
+    return ( playerTop <= jumpLine );
+}
+
+Player.prototype.isTouchingBottom = function () {
+    var playerBottom = this.y + this.sizeHeight;
+
+    return ( playerBottom > this.groundLevel );
 }
 
 //top collision
 Player.prototype.topCollision = function () {
 
-    if ( this.y < this.jumpHeight ) {
-         this.yVelocity *= -this.inertia;
-        this.y += this.yVelocity;
-        this.jumping = false;   
+    // if ( this.y < this.jumpHeight ) {
+    //      this.yVelocity *= -this.inertia;
+    //     this.y += this.yVelocity;
+    //     this.jumping = false;   
         
-    }
+    // }
 }
 
 // bottomCollision prototype
@@ -129,6 +117,10 @@ Player.prototype.bottomCollision = function () {
         this.xVelocity = 0;
         this.y = bottom;   
     } 
+    if (this.y < ( 0  + this.sizeHeight)){
+        this.yVelocity += this.yVelocity;
+        this.y += this.yVelocity;
+    }
 }    
     
 
@@ -143,7 +135,7 @@ Player.prototype.playerScreenCollision = function () {
         this.y = bottom;
     } 
     if ( this.x > screnRight ) {
-        this.direction -1;
+        this.x -= this.xVelocity;
         this.y =bottom;
     }
 
@@ -228,17 +220,17 @@ Player.prototype.removeLive = function() {
 }
 
 Player.prototype.updatePlayer = function () {
-    this.yVelocity += this.yVelocity;
-    this.xVelocity += this.xVelocity;
-    this.y += this.y;
-    this.x += this.x;
+    // this.yVelocity += this.yVelocity;
+    // this.xVelocity += this.xVelocity;
+    // this.y += this.y;
+    // this.x += this.x;
 }
 
 // defining Player prototype draw function
 Player.prototype.draw = function() {
     this.ctx.fillStyle = '#33FFF0'; // color property
     // defining player x position, player y position, player width, player height
-    this.ctx.fillRect(this.x += this.xVelocity, this.y += this.yVelocity , this.sizeWidth, this.sizeHeight);
+    this.ctx.fillRect(this.x, this.y, this.sizeWidth, this.sizeHeight);
 
 }
 
