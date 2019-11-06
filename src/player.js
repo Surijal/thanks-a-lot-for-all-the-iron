@@ -88,16 +88,6 @@ Player.prototype.isTouchingBottom = function () {
     return ( playerBottom > this.groundLevel );
 }
 
-//top collision
-Player.prototype.topCollision = function () {
-
-    // if ( this.y < this.jumpHeight ) {
-    //      this.yVelocity *= -this.inertia;
-    //     this.y += this.yVelocity;
-    //     this.jumping = false;   
-        
-    // }
-}
 
 // bottomCollision prototype
 Player.prototype.bottomCollision = function () {
@@ -105,10 +95,6 @@ Player.prototype.bottomCollision = function () {
     var screenLeft = 0;
     var screnRight = this.canvas.width - this.sizeWidth;
     
-    // if ( this.y > bottom) {
-    //     this.yVelocity =  + this.yVelocity + this.direction;
-    //     this.y = bottom;
-    // }
     if ( this.x < screenLeft ) {
         this.xVelocity = 0;
         this.y = bottom;

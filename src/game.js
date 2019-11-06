@@ -16,16 +16,6 @@ function Game() {
     
     this.ironbar = 0;
     this.score = 0;
-
-
-var frameRate = 1/40; // Seconds
-var frameDelay = frameRate * 1000; // ms
-var loopTimer = false;
-
-var Cd = 0.47;  // Dimensionless
-var rho = 1.22; // kg / m^3
-//var A = Math.PI * this.player.radius * this.player.radius / (10000); // m^2
-var ag = 9.81;  // m / s^2
 }
 
 
@@ -51,32 +41,8 @@ Game.prototype.start = function() {
     //create new Player in the prototype, canvas and 8 Lives
     this.player = new Player( this.canvas, 8, 0, 0);
 
-    
-    
-
     // create new Ground
     this.ground = new Ground (this.canvas );
-
-
-
-    // define function move player  keyup
-    // this.handleKeyUp = function ( event ) {
-        // this.player.movement(event) = true;
-        
-        /*
-        if ( event.key === 'ArrowUp' ) {
-        this.player.movement('noUp'); 
-
-        }
-        */
-    
-
-    
-
-    // //add eventlistener to keyDown
-    // document.body.addEventListener('keydown', this.handleKeyDown.bind(this));
-    // //add eventlistener to keyUp
-    // document.body.addEventListener('keyup', this.handleKeyUp.bind(this) );
     
     // call startLoop - starting the game Loop
     this.startLoop();
@@ -105,17 +71,6 @@ Game.prototype.startLoop = function() {
             this.goods.push(new Ironbars(this.canvas, startXGood, 0.25, randomGood ));
         };
 
-        // this.handleKeyDown = function ( events ){
-            
-        //     if ( events.key === 'ArrowUP') {
-        //     this.player.jumpMovement( );
-        //     }
-        // } ;
-      
-        
-        //this.player.topCollision();
-        // call collision check
-        
         // bottomCollision call
         this.player.bottomCollision();
         // enemies update
@@ -141,17 +96,13 @@ Game.prototype.startLoop = function() {
         this.ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height);
         
         //  Update the canvas
-         //draw the player call the prototype function
-        
-         //
-         this.player.jumpMovement();
+        this.player.jumpMovement();
 
         //draw player
         this.player.draw();
         
         //this.player.updatePlayer();
         // draw the Ground
-        // this.plattformOne.draw();
         this.ground.drawGround();
 
         
@@ -184,7 +135,7 @@ Game.prototype.startLoop = function() {
 
 
             //define function move player keydown
-             Game.prototype.handleKeyDown = function( event ) {
+            Game.prototype.handleKeyDown = function( event ) {
                 if (event.key === 'ArrowUp' ) {    
                     this.player.direction = -1;
                 }
@@ -272,7 +223,3 @@ Game.prototype.addIronbar = function () {
 Game.prototype.addScore = function (){
     this.score += 250;
 }
-
-
-// PARKING LOT
-
