@@ -24,3 +24,21 @@ Ground.prototype.drawGround = function() {
     this.ctx.stroke();
 }
 
+function PlattformOne ( canvas ) {
+    this.canvas = canvas;
+    this.ctx.canvas.getContext('2d');
+
+    this.width = this.canvas.width / 3;
+    this.height = 20;
+    this.y = this.canvas.height / 4;
+}
+
+PlattformOne.prototype.draw = function () {
+    this.ctx.strokeStyle = '#FF9C33';
+    this.ctx.lineWidth = this.height;
+    this.ctx.beginPath();
+    this.ctx.moveTo( 0, this.y);
+    this.ctx.lineTo ( this.width, this.y);
+    this.ctx.stroke();
+
+}

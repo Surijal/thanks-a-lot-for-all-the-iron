@@ -21,9 +21,11 @@ function Player( canvas, lives) {
     this.jumpHeight = 550;
     // enviroment default movement value
     this.inertia = 0.92;
-    this.gravity = 0.18;
-    // default positions
+    this.gravity = 0.35;
+    // default position
+    
     this.jumping = false;
+    
     this.onTheGround = true;
     this.direction = 0;
     this.currentX = 0;
@@ -35,6 +37,7 @@ function Player( canvas, lives) {
 }
 
 // defining Player prototype movement
+// called on keydown event only
 Player.prototype.movement = function ( direction ) {
     
     
@@ -66,29 +69,30 @@ Player.prototype.movement = function ( direction ) {
         this.x -= this.xVelocity;
     }
 
-     if ( direction === 'up'  && this.jumping != true ) {
-        console.log(this.yVelocity);
-   this.yVelocity = -this.maxVelocity   / 5;
-   this.jumping = true;
-   this.onTheGround = false;
- }
-   else  if ( direction === 'up' && this.jumping != false ) {
+//      if ( direction === 'up'  && this.jumping === false ) {
+//          console.log("HERE");
+//         console.log(this.yVelocity);
+//         this.yVelocity = -this.maxVelocity   / 5;
+//         this.jumping = true;
+//         this.onTheGround = false;
+//  }
+//    else  if ( direction === 'up' && this.jumping != false ) {
        
-        this.yVelocity *= this.gravity;
-        this.yVelocity += this.yVelocity;
-        this.xVelocity *= this.gravity;
-        this.x += this.xVelocity;
-        console.log(this.yVelocity);
-        this.jumping =false;
-        }
+//         this.yVelocity *= this.gravity;
+//         this.yVelocity += this.yVelocity;
+//         this.xVelocity *= this.gravity;
+//         this.x += this.xVelocity;
+//         console.log(this.yVelocity);
+//         this.jumping =false;
+//         }
         
-   else if ( this.jumping  != false ) {
+//    else if ( this.jumping  != false ) {
        
-         this.yVelocity += this.gravity;
-         this.yVelocity *= this.inertia;
-         this.y += this.yVelocity;
-         this.jumping = false;
-        }
+//          this.yVelocity += this.gravity;
+//          this.yVelocity *= this.inertia;
+//          this.y += this.yVelocity;
+//          this.jumping = false;
+//         }
     
 
         // for ( var i = 0; i < 400; i++ ) {
@@ -97,18 +101,73 @@ Player.prototype.movement = function ( direction ) {
         //         this.onTheGround = true;
         //     }
         // }
+}
+
+// called in the loop each frame
+Player.prototype.jumpMovement = function(direction) {
+
+    // directions - maybe ?
+    // on ground = 0
+    // going up = -1
+    // going down = 1
+
+    // store Infomration if  up was pressed
+    
+    // if ( direction === 'up'  && this.jumping === false ) {
+    if ( direction === 'up'  && this.jumping === false ) { //  && this.onTheGround === true
+        console.log("HERE");
+
+        // this.yVelocity = -this.maxVelocity  / 5;
+        // this.yVelocity *= this.gravity;
+
+        // this.y += this.yVelocity;
+
+        while(this.y > 550){
+            console.log(this.y);
+            this.yVelocity = -this.maxVelocity  / 3;
+            this.yVelocity *= this.gravity;
+            console.log(this.yVelocity);
+
+            this.y += this.yVelocity;
+            console.log(this.y);
+        }
+
+        this.jumping = true;
+    //    this.onTheGround = false;
         
+}
+else  if (this.jumping === true  ) { //&& this.onTheGround === false
+    // else  if ( direction === 'up' && this.jumping != false ) {
+    
+       this.yVelocity *= this.gravity;
+       this.yVelocity += this.yVelocity;
+       this.xVelocity *= this.gravity;
+       this.x += this.xVelocity;
+       console.log(this.yVelocity);
+    //    this.jumping =false;
+       }
+    //    else if ( this.jumping === false  ) { && this.onTheGround === true
+        else if ( this.jumping  != false ) {
+      
+        this.yVelocity += this.gravity;
+        this.yVelocity *= this.inertia;
+        this.y += this.yVelocity;
+        this.jumping = false;
+       }
+    //    else if() {
+
+    //    }
 }
 
 //top collision
 Player.prototype.topCollision = function () {
 
-    if ( this.y < this.jumpHeight ) {
-         this.yVelocity *= -this.inertia;
-        this.y += this.yVelocity;
-        this.jumping = false;   
+    // if ( this.y < this.jumpHeight ) {
+    //      this.yVelocity *= -this.inertia;
+    //     this.y += this.yVelocity;
+    //     this.jumping = false;   
         
-    }
+    // }
 }
 
 // bottomCollision prototype
@@ -129,6 +188,10 @@ Player.prototype.bottomCollision = function () {
         this.xVelocity = 0;
         this.y = bottom;   
     } 
+    if (this.y < ( 0  + this.sizeHeight)){
+        this.yVelocity += this.yVelocity;
+        this.y += this.yVelocity;
+    }
 }    
     
 
@@ -143,7 +206,7 @@ Player.prototype.playerScreenCollision = function () {
         this.y = bottom;
     } 
     if ( this.x > screnRight ) {
-        this.direction -1;
+        this.x -= this.xVelocity;
         this.y =bottom;
     }
 
