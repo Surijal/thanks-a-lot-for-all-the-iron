@@ -79,8 +79,8 @@ Game.prototype.startLoop = function() {
 
         };
         //radom create goods
-        if ( (Math.random() *1000) >990 ) {
-            
+        if ( (Math.random() *1000) >100 ) {
+            console.log('here');
             var randomGood = 2 * Math.random();
             var startXGood = this.spawnRight;
 
