@@ -10,7 +10,7 @@ function Ground ( canvas ) {
     this.groundHeight = 76;
     
     this.image = new Image();
-    this.image.src = './image/ground.png';
+    this.image.src = './../image/ground.png';
 } 
 
 
@@ -32,7 +32,7 @@ function Sky  (canvas) {
     this.groundY = this.canvas.height - 76;
     
     this.image = new Image();
-    this.image.src = './image/sky.jpg';
+    this.image.src = './../image/sky.jpg';
 }
 
 Sky.prototype.draw = function () {
