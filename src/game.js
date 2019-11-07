@@ -89,7 +89,7 @@ Game.prototype.startLoop = function() {
             console.log('here');
             console.log(this.goods);
         };
-
+        
         // bottomCollision call
         this.player.bottomCollision();
         // enemies update
@@ -125,14 +125,14 @@ this.enemies = this.enemies.filter(function (one) {
         
         //  Update the canvas
         this.player.jumpMovement();
-
+        this.sky.draw();
         //draw player
         this.player.draw();
         
         
         // draw the Ground
         this.ground.drawGround();
-        this.sky.draw();
+        
 
         
         // draw enemy

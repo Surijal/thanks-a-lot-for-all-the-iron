@@ -49,7 +49,7 @@ function main () {
                     <span class="value"></span>
                 </div>
                 <div class="ironbar">
-                    <span class="label">Ironbars:</span>
+                    <span class="label">Cherry:</span>
                     <span class="value"></span>
                 <div class="score">
                     <span class="label">Score:</span>
