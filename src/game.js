@@ -132,7 +132,7 @@ this.enemies = this.enemies.filter(function (one) {
         
         // draw the Ground
         this.ground.drawGround();
-        // this.sky.draw();
+        this.sky.draw();
 
         
         // draw enemy
@@ -259,7 +259,7 @@ Game.prototype.updateGameStats = function() {
     //this.score ++  ;
     this.livesElement.innerHTML = this.player.lives;
     this.scoreElement.innerHTML = this.score;
-    this.ironbarElement.innerHTML = this.player.ironbar;
+    this.ironbarElement.innerHTML = this.ironbar;
 }
 
 //add Ironbars prototype
