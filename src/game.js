@@ -64,27 +64,27 @@ Game.prototype.startLoop = function() {
             var startLeft = this.spawnLeft;
         
             var startRight = this.spawnRight;
-            console.log(random);
+        
             // this.enemies.push(new SpikedEnemy(this.canvas, +1.5, random, this.startLeft ));
             // this.enemies.push(new SpikedEnemy(this.canvas, -1.5, random,this.startRight ));  
-            if ( random < 50) {
-                console.log('right');
+            if ( random < 20) {
+                
                 this.enemies.push(new SpikedEnemy(this.canvas, +1.5, startLeft, 1));     
             };
-            if (random > 950) {
-                console.log('left');
+            if (random > 980) {
+            
                 
                 this.enemies.push(new SpikedEnemy(this.canvas, -1.5 ,startRight, -1 ));  
             };
 
         };
         //radom create goods
-        if ( Math.random() > 0.99 ) {
-            
+        if ( (Math.random() *1000) >100 ) {
+            console.log('here');
             var randomGood = 2 * Math.random();
             var startXGood = this.spawnRight;
 
-            this.goods.push(new Ironbars(this.canvas, startXGood, 0.25, randomGood ));
+            this.goods.push(new Ironbars(this.canvas, startXGood, 0.8, randomGood ));
         };
 
         // bottomCollision call
@@ -95,7 +95,7 @@ Game.prototype.startLoop = function() {
         
         this.checkCollisions();
         this.checkRewardCollisions();
-console.log(this.enemies);
+
 this.enemies = this.enemies.filter(function (one) {
 
             if (one.direction === 1) {
@@ -129,6 +129,7 @@ this.enemies = this.enemies.filter(function (one) {
         
         // draw the Ground
         this.ground.drawGround();
+        this.sky.draw();
 
         
         // draw enemy
@@ -196,14 +197,14 @@ Game.prototype.checkCollisions = function () {
     
     this.enemies.forEach(function (spikedEnemy) {
         if (this.player.enemyKilled(spikedEnemy)) {
-            console.log('score');
+        
             spikedEnemy.x = this.canvas.width + spikedEnemy.spikedEnemyWidth;
             this.addScore();
 
             
         } 
         else if (this.player.didCollideSpikedEnemy(spikedEnemy)) {
-                console.log('any' );
+            
                 
                 this.player.removeLive();
                 spikedEnemy.x = this.canvas.width + spikedEnemy.spikedEnemyWidth;

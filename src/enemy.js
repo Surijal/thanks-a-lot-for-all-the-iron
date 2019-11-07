@@ -17,14 +17,23 @@ function SpikedEnemy ( canvas,  speed, startX, direction) {
     this.speed = speed;
     this.y = this.canvasHeight - this.groundHeight - this.spikedEnemyHeight;
     this.x= startX
+    this.image = new Image();
     // this. x = 0;
 
 }
 
 SpikedEnemy.prototype.drawSpikedEnemyLeft = function () {
-    this.ctx.fillStyle ='#581845';
+    // this.ctx.fillStyle ='#581845';
 
-    this.ctx.fillRect( this.x, this.y, this.spikedEnemyWidth, this.spikedEnemyHeight);
+    if ( this.direction === -1 ) {
+        this.image.src = "/image/enemy-right.png"
+        this.ctx.drawImage(this.image, this.x, this.y, this.spikedEnemyWidth, this.spikedEnemyHeight)
+    } else {
+        this.image.src = "/image/enemy-left.png"
+        this.ctx.drawImage(this.image, this.x, this.y, this.spikedEnemyWidth, this.spikedEnemyHeight)
+
+    }
+    // this.ctx.fillRect( this.x, this.y, this.spikedEnemyWidth, this.spikedEnemyHeight);
 }
 
 SpikedEnemy.prototype.drawSpikedEnemyRight = function () {
@@ -37,12 +46,12 @@ SpikedEnemy.prototype.drawSpikedEnemyRight = function () {
 
 SpikedEnemy.prototype.updatePositionLeft = function () {
         this.x += this.speed * this.direction;
-        console.log(this,'left');
+       
 }
 
 SpikedEnemy.prototype.updatePositionRight = function () {
     this.x -= this.speed * this.direction;
-    console.log(this,'right');
+  
 }
 
 SpikedEnemy.prototype.insideScreen = function () {

@@ -6,39 +6,39 @@ function Ground ( canvas ) {
     this.ctx = this.canvas.getContext('2d'); //defining Ground canvas 2d
 
     this.groundWidth = this.canvas.width;
-    this.groundY = this.canvas.height - 76 / 2;
+    this.groundY = this.canvas.height - 76;
     this.groundHeight = 76;
     
-
+    this.image = new Image();
+    this.image.src = '/image/ground.png';
 } 
 
 
 //defining Ground prototype function
 Ground.prototype.drawGround = function() {
-    this.ctx.strokeStyle = '#FF9C33'; // color porperty 
-    this.ctx.globalAlpha = 0.8;
-    this.ctx.lineWidth = this.groundHeight;
-    this.ctx.beginPath();
-    this.ctx.moveTo( 0, this.groundY );
-    this.ctx.lineTo ( this.canvas.width, this.groundY );
-    this.ctx.stroke();
+
+this.ctx.fillRect(0, this.groundY, this.canvas.width, this.groundY);
+this.ctx.stroke();
+var pattern = this.ctx.createPattern(this.image, 'repeat');
+this.ctx.fillStyle = pattern;
+this.ctx.fillRect(0, this.groundY, this.canvas.width, this.groundY);
 }
 
-function PlattformOne ( canvas ) {
-    this.canvas = canvas;
-    this.ctx.canvas.getContext('2d');
+function Sky  (canvas) {
+    this.canvas = canvas; // defines canvas of Ground
+    this.ctx = this.canvas.getContext('2d'); //defining Ground canvas 2d
 
-    this.width = this.canvas.width / 3;
-    this.height = 20;
-    this.y = this.canvas.height / 4;
+    this.groundWidth = this.canvas.width;
+    this.groundY = this.canvas.height - 76;
+    
+    this.image = new Image();
+    this.image.src = '/image/sky.jpg';
 }
 
-PlattformOne.prototype.draw = function () {
-    this.ctx.strokeStyle = '#FF9C33';
-    this.ctx.lineWidth = this.height;
-    this.ctx.beginPath();
-    this.ctx.moveTo( 0, this.y);
-    this.ctx.lineTo ( this.width, this.y);
+Sky.prototype.draw = function () {
+    this.ctx.fillRect(0, 0, this.canvas.width, this.groundY);
     this.ctx.stroke();
-
+    var pattern = this.ctx.createPattern(this.image, 'repeat');
+    this.ctx.fillStyle = pattern;
+    this.ctx.fillRect(0, this.groundY, this.canvas.width, this.groundY);
 }
