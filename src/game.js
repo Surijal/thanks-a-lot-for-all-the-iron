@@ -3,7 +3,7 @@
 // defining Game properties 
 function Game() {
     this.canvas = null; //add canvas property
-    this.ctx = null;    //add ctx property
+    this.ctx = false;    //add ctx property
     
     // add enemy property
     // add player property
@@ -17,6 +17,8 @@ function Game() {
     this.ironbar = 0;
     this.score = 0;
 }
+
+
 
 // defining Game Start  prototype function
 Game.prototype.start = function() {
@@ -35,57 +37,15 @@ Game.prototype.start = function() {
     this.canvas.setAttribute('height', this.containerHeight ); // adding height attribute to containerHeight
     this.groundHeight = 76;
     this.groundLevel = this.canvas.height - this.groundHeight;
-    this.spawn = this.canvas.width;
+   
+    this.spawnRight = this.canvas.width -5;
+    this.spawnLeft = (this.canvas.width - this.canvas.width) +5;
+    
     //create new Player in the prototype, canvas and 8 Lives
-    this.player = new Player( this.canvas, 8, 0);
-
-    
-    
+    this.player = new Player( this.canvas, 3, 0, 0);
 
     // create new Ground
     this.ground = new Ground (this.canvas );
-
-    //define function move player keydown
-    this.handleKeyDown = function ( event ) {
-        if (event.key === 'ArrowUp' && this.player.jumping !== true ) {
-            this.player.direction = -1;
-            this.player.jumping = true;
-        }
-        if ( event.key === 'ArrowRight' ) {
-            this.player.setDirection('right');
-            //this.player.direction = this.x -1;
-            //this.player.movement('right');
-        }
-        if ( event.key === 'ArrowLeft' ) { 
-            this.player.direction = -2;             //this.player.jumping !== true) {
-            
-            //this.player.movement('left');
-        }
-
-        if ( event.key === 'ArrowRight' && this.player.jumping === true ) {
-            this.player.direction =+2;
-        
-        }
-    };
-
-    // define function move player  keyup
-    this.handleKeyUp = function ( event ) {
-        // this.player.movement(event) = true;
-        
-        /*
-        if ( event.key === 'ArrowUp' ) {
-        this.player.movement('noUp'); 
-
-        }
-        */
-    };
-
-    
-
-    //add eventlistener to keyDown
-    document.body.addEventListener('keydown', this.handleKeyDown.bind(this));
-    //add eventlistener to keyUp
-    //document.body.addEventListener('keyup', this.handleKeyUp.bind(this) );
     
     // call startLoop - starting the game Loop
     this.startLoop();
@@ -93,110 +53,185 @@ Game.prototype.start = function() {
 
 // defining Game prototype startLoop function
 Game.prototype.startLoop = function() {
-    var loop = function() { 
-        // random enemy create 
-        if ( Math.random() > 0.98 ) {
-            var random =  768 * Math.random();
-            var startX = this.spawn;
 
-            this.enemies.push(new SpikedEnemy(this.canvas, startX, 1.5, random));  
+    document.body.addEventListener('keydown', this.handleKeyDown.bind(this));
+
+    var loop = function() { 
+
+        // random enemy create 
+        if ( Math.random() > 0.5 ) {
+            var random =  Math.random() * 1000;
+            var startLeft = this.spawnLeft;
+        
+            var startRight = this.spawnRight;
+            console.log(random);
+            // this.enemies.push(new SpikedEnemy(this.canvas, +1.5, random, this.startLeft ));
+            // this.enemies.push(new SpikedEnemy(this.canvas, -1.5, random,this.startRight ));  
+            if ( random < 50) {
+                console.log('right');
+                this.enemies.push(new SpikedEnemy(this.canvas, +1.5, startLeft, 1));     
+            };
+            if (random > 950) {
+                console.log('left');
+                
+                this.enemies.push(new SpikedEnemy(this.canvas, -1.5 ,startRight, -1 ));  
+            };
+
         };
         //radom create goods
         if ( Math.random() > 0.99 ) {
+            
             var randomGood = 2 * Math.random();
-            var startXGood = this.spawn;
+            var startXGood = this.spawnRight;
 
             this.goods.push(new Ironbars(this.canvas, startXGood, 0.25, randomGood ));
         };
-        // call collision check
-        this.checkCollisions();
+
         // bottomCollision call
         this.player.bottomCollision();
-        // jumpHeight
-        this.player.updatePlayerDirection();
-
-        //this.player.updatePlayerPosition();
+        // enemies update
+        //this.player.playerScreenCollision();
         
+        
+        this.checkCollisions();
+        this.checkRewardCollisions();
+console.log(this.enemies);
+this.enemies = this.enemies.filter(function (one) {
+
+            if (one.direction === 1) {
+                one.updatePositionLeft();
+                return one.insideScreen();
+            }
+            else if (one.direction === -1 ) {
+                one.updatePositionRight();
+                return one.insideScreen();
+            }
+            });
+
+
+
+        this.goods = this.goods.filter(function (good) {
+            good.updatePositionIronbar();
+            return good.insideScreenW();
+        })
         
         
         
         // Clear the canvas
-        this.ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height );
+        this.ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height);
         
         //  Update the canvas
-        //  draw the player call the prototype function
-        
+        this.player.jumpMovement();
+
         //draw player
         this.player.draw();
         
         
         // draw the Ground
         this.ground.drawGround();
-        
-        this.enemies = this.enemies.filter(function (one) {
-            one.updatePosition();
-            return one.insideScreen();
-        });
-
-        this.goods = this.goods.filter(function (good) {
-            good.updatePositionIronbar();
-            return good.insideScreenW();
-        })
 
         
+        // draw enemy
+        // if ( this.enemies.startRight = true ) {
+        //     this.enemies.forEach(function( item ) { 
+        //         item.drawSpikedEnemyRight();
+                
+        //     });
+        // }
 
-         // draw enemy
+
         this.enemies.forEach(function( item ) { 
-            item.drawSpikedEnemy();
-            
-        });
-
+            item.drawSpikedEnemyLeft();
+        })
+    
+    
+        //this.spikedEnemy.updatePosition();
+        
         // draw goods
         this.goods.forEach(function(goodDraw){
             goodDraw.drawIronbars();
         });
+
+        
+        // Update Game Stats
+        this.updateGameStats();
         
         // stop game if its over
         if (!this.gameIsOver) {
             window.requestAnimationFrame(loop);
         }  
 
-        // Update Game Stats
-        this.updateGameStats();
-    
 
-        //window.requestAnimationFrame(loop);
     }.bind(this);
 
     window.requestAnimationFrame(loop);
 };
 
+
+            //define function move player keydown
+            Game.prototype.handleKeyDown = function( event ) {
+                if (event.key === 'ArrowUp' ) {    
+                    var inTheAir = this.groundLevel - this.player.sizeHeight - 10;
+
+                    if ( this.player.y < inTheAir ){
+                        return false;
+                    
+                    } else {
+                        this.player.direction = -1;
+
+                    }
+
+                }
+
+                if ( event.key === 'ArrowRight' ) {
+                    this.player.movement('right');
+                }
+
+                if ( event.key === 'ArrowLeft' ) {
+                    this.player.movement('left');
+                }
+            };
+
 Game.prototype.checkCollisions = function () {
-    this.enemies.forEach(function(SpikedEnemy){
-        if (this.player.didCollideSpikedEnemy(SpikedEnemy)){
-            this.player.removeLive();
+    
+    this.enemies.forEach(function (spikedEnemy) {
+        if (this.player.enemyKilled(spikedEnemy)) {
+            console.log('score');
+            spikedEnemy.x = this.canvas.width + spikedEnemy.spikedEnemyWidth;
+            this.addScore();
 
-            SpikedEnemy.y = this.groundLevel - (SpikedEnemy.spikedEnemyHeight);
             
-            if (this.player.lives === 0) {
-                this.gameOver();
-            }   
-        } else if ( SpikedEnemy.x < this.player.x ) {
-            for ( var i = 0; i < 1; i++) {
-                this.score += 100;
+        } 
+        else if (this.player.didCollideSpikedEnemy(spikedEnemy)) {
+                console.log('any' );
+                
+                this.player.removeLive();
+                spikedEnemy.x = this.canvas.width + spikedEnemy.spikedEnemyWidth;
+
+                
+                if (this.player.lives === 0) {
+                    this.gameOver();
+                } 
+
+            } 
+        } ,this);
+
+    }
+    
+    Game.prototype.checkRewardCollisions = function () {
+        this.goods.forEach(function(Ironbars) {
+            
+            if (this.player.collectIronbar(Ironbars)){
+                this.addIronbar();
+    
+                Ironbars.y = 0;
             }
-        }
-    }, this);
+    
+        }, this);
+    }
 
-    this.goods.forEach(function(Ironbars) {
-        if (this.player.collectIronbar(Ironbars)){
-            this.player.addIronbar();
 
-            Ironbars.y = 0;
-        }
 
-    }, this);
-}
 
 //GameOver Callback 
 Game.prototype.passGameOverCallback = function (callback) {
@@ -217,8 +252,17 @@ Game.prototype.removeGameScreen = function() {
 
 //Update Game stats
 Game.prototype.updateGameStats = function() {
-    this.score;
+    //this.score ++  ;
     this.livesElement.innerHTML = this.player.lives;
     this.scoreElement.innerHTML = this.score;
     this.ironbarElement.innerHTML = this.player.ironbar;
+}
+
+//add Ironbars prototype
+Game.prototype.addIronbar = function () {
+    this.ironbar += 1;
+}
+
+Game.prototype.addScore = function (){
+    this.score += 250;
 }
