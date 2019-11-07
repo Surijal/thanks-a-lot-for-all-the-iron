@@ -37,8 +37,10 @@ Game.prototype.start = function() {
     this.canvas.setAttribute('height', this.containerHeight ); // adding height attribute to containerHeight
     this.groundHeight = 76;
     this.groundLevel = this.canvas.height - this.groundHeight;
+   
     this.spawnRight = this.canvas.width -5;
     this.spawnLeft = (this.canvas.width - this.canvas.width) +5;
+    
     //create new Player in the prototype, canvas and 8 Lives
     this.player = new Player( this.canvas, 3, 0, 0);
 
@@ -60,23 +62,27 @@ Game.prototype.startLoop = function() {
         if ( Math.random() > 0.5 ) {
             var random =  Math.random() * 1000;
             var startLeft = this.spawnLeft;
+        
             var startRight = this.spawnRight;
             console.log(random);
             // this.enemies.push(new SpikedEnemy(this.canvas, +1.5, random, this.startLeft ));
             // this.enemies.push(new SpikedEnemy(this.canvas, -1.5, random,this.startRight ));  
-            // if ( random < 0.5) {
-        
-            //     this.enemies.push(new SpikedEnemy(this.canvas, +1.5, random, startLeft ));     
-            // };
+            if ( random < 50) {
+                console.log('right');
+                this.enemies.push(new SpikedEnemy(this.canvas, +1.5, startLeft, 1));     
+            };
             if (random > 950) {
-                this.enemies.push(new SpikedEnemy(this.canvas, -1.5, random, startRight ));  
+                console.log('left');
+                
+                this.enemies.push(new SpikedEnemy(this.canvas, -1.5 ,startRight, -1 ));  
             };
 
         };
         //radom create goods
         if ( Math.random() > 0.99 ) {
+            
             var randomGood = 2 * Math.random();
-            var startXGood = this.spawn;
+            var startXGood = this.spawnRight;
 
             this.goods.push(new Ironbars(this.canvas, startXGood, 0.25, randomGood ));
         };
@@ -89,20 +95,20 @@ Game.prototype.startLoop = function() {
         
         this.checkCollisions();
         this.checkRewardCollisions();
+console.log(this.enemies);
+this.enemies = this.enemies.filter(function (one) {
 
-        if (this.enemies.startLeft = true) {
-            this.enemies = this.enemies.filter(function (one) {
+            if (one.direction === 1) {
                 one.updatePositionLeft();
                 return one.insideScreen();
-            });
-        }
-
-            if (this.enemies.startRight = true) {
-                this.enemies = this.enemies.filter(function (one) {
-                    one.updatePositionRight();
-                    return one.insideScreen();
-                });
             }
+            else if (one.direction === -1 ) {
+                one.updatePositionRight();
+                return one.insideScreen();
+            }
+            });
+
+
 
         this.goods = this.goods.filter(function (good) {
             good.updatePositionIronbar();
@@ -165,7 +171,16 @@ Game.prototype.startLoop = function() {
             //define function move player keydown
             Game.prototype.handleKeyDown = function( event ) {
                 if (event.key === 'ArrowUp' ) {    
-                    this.player.direction = -1;
+                    var inTheAir = this.groundLevel - this.player.sizeHeight - 10;
+
+                    if ( this.player.y < inTheAir ){
+                        return false;
+                    
+                    } else {
+                        this.player.direction = -1;
+
+                    }
+
                 }
 
                 if ( event.key === 'ArrowRight' ) {
