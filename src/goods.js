@@ -22,7 +22,7 @@ function Ironbars ( canvas, x, speed, random ) {
 
 Ironbars.prototype.drawIronbars = function() {
     console.log('hello');
-    this.image.src = "/image/good.png";
+    this.image.src = "./image/good.png";
     this.ctx.drawImage(this.image, this.x, this.y, this.ironbarWidth, this.ironbarHeight);
 
     // this.ctx.fillStyle = '#464543';

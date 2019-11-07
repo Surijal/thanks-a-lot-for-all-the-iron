@@ -26,10 +26,10 @@ SpikedEnemy.prototype.drawSpikedEnemyLeft = function () {
     // this.ctx.fillStyle ='#581845';
 
     if ( this.direction === -1 ) {
-        this.image.src = "/image/enemy-right.png"
+        this.image.src = "./image/enemy-right.png"
         this.ctx.drawImage(this.image, this.x, this.y, this.spikedEnemyWidth, this.spikedEnemyHeight)
     } else {
-        this.image.src = "/image/enemy-left.png"
+        this.image.src = "./image/enemy-left.png"
         this.ctx.drawImage(this.image, this.x, this.y, this.spikedEnemyWidth, this.spikedEnemyHeight)
 
     }
