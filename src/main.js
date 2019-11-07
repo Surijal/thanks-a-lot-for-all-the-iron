@@ -82,6 +82,13 @@ function main () {
                     <span>
                     </span>
                 </p>
+                <p>
+                    <span class="quote">If you want to increase your success rate, double your failure rate.
+                    </span>
+                    <span class="quote name">
+                    Thomas J. Watson
+                    </span>
+                </p>
                 <button>Restart</button>
             </main>
             `

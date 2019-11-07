@@ -270,3 +270,6 @@ Game.prototype.addIronbar = function () {
 Game.prototype.addScore = function (){
     this.score += 250;
 }
+
+
+
