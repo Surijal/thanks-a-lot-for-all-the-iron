@@ -37,9 +37,10 @@ Game.prototype.start = function() {
     this.canvas.setAttribute('height', this.containerHeight ); // adding height attribute to containerHeight
     this.groundHeight = 76;
     this.groundLevel = this.canvas.height - this.groundHeight;
-    this.spawn = this.canvas.width;
+    this.spawnRight = this.canvas.width -5;
+    this.spawnLeft = (this.canvas.width - this.canvas.width) +5;
     //create new Player in the prototype, canvas and 8 Lives
-    this.player = new Player( this.canvas, 8, 0, 0);
+    this.player = new Player( this.canvas, 3, 0, 0);
 
     // create new Ground
     this.ground = new Ground (this.canvas );
@@ -54,14 +55,23 @@ Game.prototype.startLoop = function() {
     document.body.addEventListener('keydown', this.handleKeyDown.bind(this));
 
     var loop = function() { 
-                  //add eventlistener to keyDown
 
         // random enemy create 
-        if ( Math.random() > 0.98 ) {
-            var random =  10 * Math.random();
-            var startX = this.spawn;
+        if ( Math.random() > 0.5 ) {
+            var random =  Math.random() * 1000;
+            var startLeft = this.spawnLeft;
+            var startRight = this.spawnRight;
+            console.log(random);
+            // this.enemies.push(new SpikedEnemy(this.canvas, +1.5, random, this.startLeft ));
+            // this.enemies.push(new SpikedEnemy(this.canvas, -1.5, random,this.startRight ));  
+            // if ( random < 0.5) {
+        
+            //     this.enemies.push(new SpikedEnemy(this.canvas, +1.5, random, startLeft ));     
+            // };
+            if (random > 950) {
+                this.enemies.push(new SpikedEnemy(this.canvas, -1.5, random, startRight ));  
+            };
 
-            this.enemies.push(new SpikedEnemy(this.canvas, startX, 1.5, random));  
         };
         //radom create goods
         if ( Math.random() > 0.99 ) {
@@ -80,10 +90,19 @@ Game.prototype.startLoop = function() {
         this.checkCollisions();
         this.checkRewardCollisions();
 
-        this.enemies = this.enemies.filter(function (one) {
-            one.updatePosition();
-            return one.insideScreen();
-        });
+        if (this.enemies.startLeft = true) {
+            this.enemies = this.enemies.filter(function (one) {
+                one.updatePositionLeft();
+                return one.insideScreen();
+            });
+        }
+
+            if (this.enemies.startRight = true) {
+                this.enemies = this.enemies.filter(function (one) {
+                    one.updatePositionRight();
+                    return one.insideScreen();
+                });
+            }
 
         this.goods = this.goods.filter(function (good) {
             good.updatePositionIronbar();
@@ -101,18 +120,27 @@ Game.prototype.startLoop = function() {
         //draw player
         this.player.draw();
         
-        //this.player.updatePlayer();
+        
         // draw the Ground
         this.ground.drawGround();
 
         
-        
-         // draw enemy
-        this.enemies.forEach(function( item ) { 
-            item.drawSpikedEnemy();
-            
-        });
+        // draw enemy
+        // if ( this.enemies.startRight = true ) {
+        //     this.enemies.forEach(function( item ) { 
+        //         item.drawSpikedEnemyRight();
+                
+        //     });
+        // }
 
+
+        this.enemies.forEach(function( item ) { 
+            item.drawSpikedEnemyLeft();
+        })
+    
+    
+        //this.spikedEnemy.updatePosition();
+        
         // draw goods
         this.goods.forEach(function(goodDraw){
             goodDraw.drawIronbars();

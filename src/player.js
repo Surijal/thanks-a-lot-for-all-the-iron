@@ -32,7 +32,7 @@ function Player( canvas, lives) {
     this.westY = 500;
     this.groundLevel = this.canvas.height - this.groundHeight;
     // player default position
-    this.x = 50;    
+    this.x = this.canvas.width / 2;    
     this.y = this.groundLevel - this.sizeHeight;;
 }
 
@@ -53,7 +53,7 @@ Player.prototype.movement = function ( direction ) {
 Player.prototype.jumpMovement = function() {
     var playerWasGoingUp = this.direction === -1;
 
-    console.log("DIRECTION", this.direction);
+
 
     if(this.isTouchingBottom() ) { // if player had touched bottom, set direction to zero
         this.direction = 0;
@@ -205,12 +205,7 @@ Player.prototype.removeLive = function() {
     this.lives -= 1;
 }
 
-Player.prototype.updatePlayer = function () {
-    // this.yVelocity += this.yVelocity;
-    // this.xVelocity += this.xVelocity;
-    // this.y += this.y;
-    // this.x += this.x;
-}
+
 
 // defining Player prototype draw function
 Player.prototype.draw = function() {
