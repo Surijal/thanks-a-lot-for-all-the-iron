@@ -46,6 +46,7 @@ Game.prototype.start = function() {
 
     // create new Ground
     this.ground = new Ground (this.canvas );
+    this.sky = new Sky (this.canvas);
     
     // call startLoop - starting the game Loop
     this.startLoop();
@@ -79,12 +80,14 @@ Game.prototype.startLoop = function() {
 
         };
         //radom create goods
-        if ( (Math.random() *1000) >100 ) {
-            console.log('here');
+        if ( (Math.random() *1000) > 980      ) {
+
             var randomGood = 2 * Math.random();
             var startXGood = this.spawnRight;
 
             this.goods.push(new Ironbars(this.canvas, startXGood, 0.8, randomGood ));
+            console.log('here');
+            console.log(this.goods);
         };
 
         // bottomCollision call
@@ -110,7 +113,7 @@ this.enemies = this.enemies.filter(function (one) {
 
 
 
-        this.goods = this.goods.filter(function (good) {
+        this.goods.forEach(function (good) {
             good.updatePositionIronbar();
             return good.insideScreenW();
         })
@@ -129,7 +132,7 @@ this.enemies = this.enemies.filter(function (one) {
         
         // draw the Ground
         this.ground.drawGround();
-        this.sky.draw();
+        // this.sky.draw();
 
         
         // draw enemy

@@ -29,7 +29,7 @@ function Sky  (canvas) {
     this.ctx = this.canvas.getContext('2d'); //defining Ground canvas 2d
 
     this.groundWidth = this.canvas.width;
-    this.groundY = this.canvas.height - 76;
+    this.groundY = this.canvas.height - 77;
     
     this.image = new Image();
     this.image.src = '/image/sky.jpg';
