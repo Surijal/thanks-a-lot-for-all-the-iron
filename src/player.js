@@ -76,6 +76,11 @@ Player.prototype.jumpMovement = function() {
     }
 }
 
+Player.prototype.movePlayer = function (direction){
+    this.y = this.y + this.jumpSpeed * this.direction;
+    this.x = this.x + this.speed;
+}
+
 Player.prototype.passedJumpLine = function () {
     var playerTop = this.y;
     var jumpLine = this.groundLevel - 150;

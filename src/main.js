@@ -18,7 +18,7 @@ function main () {
     // Creating SplashScreen
     function createSplashScreen () {
         splashScreen = buildDom(    //creating hml strucure SplashScreen
-            `<main>
+            `<main class="splashscreen">
                 <h1>thanks a lot for all the iron</h1>
                 <button>Start</button>
             </main>
@@ -76,7 +76,7 @@ function main () {
     function createGameOverScreen(score) {
         gameOverScreen = buildDom(
             `
-            <main>
+            <main class="gameover">
                 <h1>Game over</h1>
                 <p>Your score:
                     <span>

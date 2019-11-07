@@ -125,10 +125,11 @@ this.enemies = this.enemies.filter(function (one) {
         
         //  Update the canvas
         this.player.jumpMovement();
-        this.sky.draw();
+        this.sky.draw();    
         //draw player
         this.player.draw();
         
+        //this.player.movePlayer();
         
         // draw the Ground
         this.ground.drawGround();

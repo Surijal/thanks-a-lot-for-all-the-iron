@@ -41,6 +41,7 @@ html, body {
     text-align:  center;
     display: flex;
     flex-direction: column;
+    
     height: 100%;
 }
 
@@ -48,6 +49,12 @@ html, body {
     height: 50px;
     display: flex;
     align-items: center;
+}
+
+.game h1 {
+    display: flex;
+    justify-content: center;
+
 }
 
 .game .lives {
@@ -64,4 +71,17 @@ html, body {
 
 .game .canvas-container {
     flex: 1;
+}
+
+.splashscreen {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.gameover {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
