@@ -25,6 +25,7 @@ function Player( canvas, lives) {
     // default position
     
     this.jumping = false;
+    this.image = new Image();
     
     this.onTheGround = true;
     this.direction = 0;
@@ -168,7 +169,7 @@ Player.prototype.enemyKilled = function (SpikedEnemy) {
    
 
     if ( hitEnemy && (crossLeft || crossRight)  ){
-        console.log('enemy killed');
+ 
         return true;
     }
 
@@ -209,9 +210,11 @@ Player.prototype.removeLive = function() {
 
 // defining Player prototype draw function
 Player.prototype.draw = function() {
-    this.ctx.fillStyle = '#33FFF0'; // color property
+    this.image.src = "/image/player.png";
+    this.ctx.drawImage(this.image, this.x, this.y, this.sizeWidth, this.sizeHeight);
     // defining player x position, player y position, player width, player height
-    this.ctx.fillRect(this.x, this.y, this.sizeWidth, this.sizeHeight);
+    // this.ctx.fillStyle = '#33FFF0'; // color property
+    // this.ctx.fillRect(this.x, this.y, this.sizeWidth, this.sizeHeight);
 
 }
 

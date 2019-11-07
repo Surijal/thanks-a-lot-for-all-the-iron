@@ -9,14 +9,14 @@ function Ground ( canvas ) {
     this.groundY = this.canvas.height - 76 / 2;
     this.groundHeight = 76;
     
-
+    this.image = new Image();
 } 
 
 
 //defining Ground prototype function
 Ground.prototype.drawGround = function() {
     this.ctx.strokeStyle = '#FF9C33'; // color porperty 
-    this.ctx.globalAlpha = 0.8;
+
     this.ctx.lineWidth = this.groundHeight;
     this.ctx.beginPath();
     this.ctx.moveTo( 0, this.groundY );
@@ -34,7 +34,10 @@ function PlattformOne ( canvas ) {
 }
 
 PlattformOne.prototype.draw = function () {
-    this.ctx.strokeStyle = '#FF9C33';
+    this.ctx.src = "/image/ground.png"
+    this.ctx.createPattern(img, 'repeat');
+    this.ctx.strokeStyle = pattern;
+    this.ctx.fill();
     this.ctx.lineWidth = this.height;
     this.ctx.beginPath();
     this.ctx.moveTo( 0, this.y);

@@ -11,17 +11,22 @@ function Ironbars ( canvas, x, speed, random ) {
     this.speed = speed;
     this.random = random;
 
-    this.ironbarHeight = 25;
-    this.ironbarWidth = 10;
+    this.ironbarHeight = 24;
+    this.ironbarWidth = 24;
 
     this.x = x;
     this.y = this.canvasHeight - this.groundHeight - (this.ironbarHeight * 4);
+
+    this.image = new Image();
 }
 
 Ironbars.prototype.drawIronbars = function() {
-    this.ctx.fillStyle = '#464543';
+    this.image.src = "/image/good.png"
+    this.ctx.drawImage(this.image, this.x, this.y, this.ironbarWidth, this.ironbarHeight);
 
-    this.ctx.fillRect(this.x, this.y, this.ironbarWidth, this.ironbarHeight);
+    // this.ctx.fillStyle = '#464543';
+
+    // this.ctx.fillRect(this.x, this.y, this.ironbarWidth, this.ironbarHeight);
 }
 
 Ironbars.prototype.updatePositionIronbar = function () {
@@ -29,5 +34,4 @@ Ironbars.prototype.updatePositionIronbar = function () {
 }
 
 Ironbars.prototype.insideScreenW = function () {
-    return this.x + this.ironbarWidth / 2 > 0;
 }
