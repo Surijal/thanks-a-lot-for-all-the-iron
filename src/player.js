@@ -76,7 +76,7 @@ Player.prototype.jumpMovement = function() {
     }
 }
 
-Player.prototype.movePlayer = function (direction){
+Player.prototype.movePlayer = function (){
     this.y = this.y + this.jumpSpeed * this.direction;
     this.x = this.x + this.speed;
 }

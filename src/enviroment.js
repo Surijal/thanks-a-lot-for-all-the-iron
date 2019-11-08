@@ -11,7 +11,7 @@ function Ground ( canvas ) {
     
     this.image = new Image();
     this.image.src = './image/ground.png';
-} 
+}  
 
 
 //defining Ground prototype function
