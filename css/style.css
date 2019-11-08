@@ -17,8 +17,6 @@ canvas {
     border: 2px solid #900C3F; 
 }
 
-/* layout */
-
 html, body {
     height: 100%;
 }
@@ -34,35 +32,45 @@ html, body {
     }
 }
 
-
-/* components */
-
 .game {
     text-align:  center;
     display: flex;
     flex-direction: column;
-    
     height: 100%;
 }
 
 .game header {
     height: 50px;
+    margin: 20px;
     display: flex;
     align-items: center;
+    font-size: 1.1em;
+}
+
+.game span {
+    margin: 10px;
 }
 
 .game h1 {
     display: flex;
     justify-content: center;
-
 }
 
 .game .lives {
+    display: flex;
     flex: 1;
+    justify-content: flex-start;
+    flex-direction: row;
 }
 
 .game .score {
+    display: flex;
     flex: 1;
+    flex-direction: row;
+}
+
+.game .ironbar {
+    display: flex;
 }
 
 .game .label {
@@ -73,11 +81,32 @@ html, body {
     flex: 1;
 }
 
-.splashscreen {
+.splashscreen  {
     display: flex;
     text-align: center;
     justify-content: center;
     flex-direction: column;
+}
+
+.splashscreen h1, span {
+    display: flex;
+    justify-content:center;
+}
+
+.splashscreen h1 { 
+    margin: 150px;
+    font-size: 4.5em;
+    font-weight: bold;
+}
+
+.splashscreen button {
+    border: 2px solid black;
+    padding: 25px 40px;
+    
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 2em;
+    text-align: center;
 }
 
 .gameover {
@@ -86,3 +115,24 @@ html, body {
     flex-direction: column;
 }
 
+.gameover h1 {
+    margin: 150px 0;
+    font-weight: bold;
+    font-size: 3.5em;   
+    display: flex;
+    justify-content: center;
+}
+
+.gameover p  {
+    display: flex;
+    flex-direction: row;
+}
+
+.gameover button {
+    border: 2px solid black;
+    padding: 15px  25px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 2em;
+    text-align: center; 
+}
