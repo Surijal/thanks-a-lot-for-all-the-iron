@@ -19,7 +19,7 @@ function main () {
     function createSplashScreen () {
         splashScreen = buildDom(    //creating hml strucure SplashScreen
             `<main class="splashscreen">
-                <h1>thanks a lot for all the iron</h1>
+                <h1>Thanks a lot for all the iron</h1>
                 <span>
                 <button>Start</button>
                 </span>
@@ -80,8 +80,11 @@ function main () {
             `
             <main class="gameover">
                 <h1>Game over</h1>
-                <p class"score">Your score:
-                    <span>
+                <p class"score">
+                    <p class="score title">
+                        Final score:
+                    </p>
+                    <span class="score value">
                     </span>
                 </p>
                     <span>
