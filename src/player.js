@@ -130,50 +130,52 @@ class Player {
             this.y += this.yVelocity;
         }
     }
+
+    playerScreenCollision () {
+        var screenLeft = this.x + this.sizeWidth;
+        var screnRight = this.canvas.width - this.sizeWidth;
+        var bottom = this.groundLevel - this.sizeHeight;
+        var screenTop = 0 +this.sizeHeight;
+        
+        if ( this.x < screenLeft ) {
+            this.x += this.xVelocity;
+            this.y = bottom;
+        } 
+        if ( this.x > screnRight ) {
+            this.x -= this.xVelocity;
+            this.y =bottom;
+        }
+    
+        if (this.y < ( 0  + this.sizeHeight)){
+            this.yVelocity += this.yVelocity;
+            this.y += this.yVelocity;
+        }
+    }
+
+    didCollideSpikedEnemy ( SpikedEnemy ) {
+        var playerLeft = this.x;
+        var playerRight = this.x + this.sizeWidth;
+        var playerTop = this.y;
+        var playerBottom = this.y + this.sizeHeight;
+
+        var SpikedEnemyLeft = SpikedEnemy.x;
+        var SpikedEnemyRight = SpikedEnemy.x + SpikedEnemy.spikedEnemyWidth;
+        var SpikedEnemyTop = SpikedEnemy.y +10;
+        var SpikedEnemyBottom = SpikedEnemy.y + SpikedEnemy.spikedEnemyHeight;
+
+        var crossRight = SpikedEnemyLeft <= playerRight && SpikedEnemyLeft >= playerLeft;
+        var crossLeft = SpikedEnemyRight >= playerLeft && SpikedEnemyRight <= playerRight;
+        var crossTop = SpikedEnemyBottom >= playerTop && SpikedEnemyBottom <= playerBottom;
+        var crossBottom = SpikedEnemyTop  < playerBottom ;
+
+        if ( (crossRight || crossLeft) && crossBottom ) {  //&& (crossBottom || crossTop)
+            return true;
+        }
+        return false;
+    };
 }
 
-// Player.prototype.playerScreenCollision = function () {
-//     var screenLeft = this.x + this.sizeWidth;
-//     var screnRight = this.canvas.width - this.sizeWidth;
-//     var bottom = this.groundLevel - this.sizeHeight;
-//     var screenTop = 0 +this.sizeHeight;
-    
-//     if ( this.x < screenLeft ) {
-//         this.x += this.xVelocity;
-//         this.y = bottom;
-//     } 
-//     if ( this.x > screnRight ) {
-//         this.x -= this.xVelocity;
-//         this.y =bottom;
-//     }
 
-//     if (this.y < ( 0  + this.sizeHeight)){
-//         this.yVelocity += this.yVelocity;
-//         this.y += this.yVelocity;
-//     }
-// }
-
-Player.prototype.didCollideSpikedEnemy = function ( SpikedEnemy ) {
-    var playerLeft = this.x;
-    var playerRight = this.x + this.sizeWidth;
-    var playerTop = this.y;
-    var playerBottom = this.y + this.sizeHeight;
-
-    var SpikedEnemyLeft = SpikedEnemy.x;
-    var SpikedEnemyRight = SpikedEnemy.x + SpikedEnemy.spikedEnemyWidth;
-    var SpikedEnemyTop = SpikedEnemy.y +10;
-    var SpikedEnemyBottom = SpikedEnemy.y + SpikedEnemy.spikedEnemyHeight;
-
-    var crossRight = SpikedEnemyLeft <= playerRight && SpikedEnemyLeft >= playerLeft;
-    var crossLeft = SpikedEnemyRight >= playerLeft && SpikedEnemyRight <= playerRight;
-    var crossTop = SpikedEnemyBottom >= playerTop && SpikedEnemyBottom <= playerBottom;
-    var crossBottom = SpikedEnemyTop  < playerBottom ;
-
-    if ( (crossRight || crossLeft) && crossBottom ) {  //&& (crossBottom || crossTop)
-        return true;
-    }
-    return false;
-};
 
 Player.prototype.enemyKilled = function (SpikedEnemy) {
     var playerBottom = this.y + this.sizeHeight;
