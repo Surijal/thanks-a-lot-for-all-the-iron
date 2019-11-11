@@ -221,23 +221,29 @@ class Player {
     removeLive () {
         this.lives -= 1;
     }
+
+    // defining Player prototype draw function
+    draw () {
+        this.image.src = "./image/player.png";
+        this.ctx.drawImage(this.image, this.x, this.y, this.sizeWidth, this.sizeHeight);
+        // defining player x position, player y position, player width, player height
+        // this.ctx.fillStyle = '#33FFF0'; // color property
+        // this.ctx.fillRect(this.x, this.y, this.sizeWidth, this.sizeHeight);
+
+    }
 }
 
+// // defining Player prototype draw function
+// Player.prototype.draw = function() {
+//     this.image.src = "./image/player.png";
+//     this.ctx.drawImage(this.image, this.x, this.y, this.sizeWidth, this.sizeHeight);
+//     // defining player x position, player y position, player width, player height
+//     // this.ctx.fillStyle = '#33FFF0'; // color property
+//     // this.ctx.fillRect(this.x, this.y, this.sizeWidth, this.sizeHeight);
 
-// // remove live prototype
-// Player.prototype.removeLive = function() {
-//     this.lives -= 1;
 // }
 
 
 
-// defining Player prototype draw function
-Player.prototype.draw = function() {
-    this.image.src = "./image/player.png";
-    this.ctx.drawImage(this.image, this.x, this.y, this.sizeWidth, this.sizeHeight);
-    // defining player x position, player y position, player width, player height
-    // this.ctx.fillStyle = '#33FFF0'; // color property
-    // this.ctx.fillRect(this.x, this.y, this.sizeWidth, this.sizeHeight);
 
-}
 
