@@ -215,38 +215,19 @@ class Player {
             return true;
         }
         return false;
-    };
+    }
+
+    // remove live prototype
+    removeLive () {
+        this.lives -= 1;
+    }
 }
 
-// Player.prototype.collectIronbar = function ( Ironbars ) {
-//     var playerLeft = this.x;
-//     var playerRight = this.x + this.sizeWidth;
-//     var playerTop = this.y;
-//     var playerBottom = this.y + this.sizeHeight;
 
-//     var IronbarsLeft = Ironbars.x;
-//     var IronbarsRight = Ironbars.x + Ironbars.IronbarsWidth;
-//     var IronbarsTop = Ironbars.y;
-//     var IronbarsBottom = Ironbars.y + Ironbars.IronbarsHeight;
-
-//     var crossRight = IronbarsLeft <= playerRight && IronbarsLeft >= playerLeft;
-//     var crossLeft = IronbarsRight >= playerLeft && IronbarsRight <= playerRight;
-//     var crossTop = IronbarsBottom >= playerTop && IronbarsBottom <= playerBottom;
-//     var crossBottom = IronbarsTop <= playerBottom && IronbarsTop >= playerTop;
-
-//     if ( (crossRight || crossLeft) && (crossBottom || crossTop) ) {
-//         return true;
-//     }
-//     return false;
-// };
-
-
-
-
-// remove live prototype
-Player.prototype.removeLive = function() {
-    this.lives -= 1;
-}
+// // remove live prototype
+// Player.prototype.removeLive = function() {
+//     this.lives -= 1;
+// }
 
 
 
