@@ -76,14 +76,21 @@ class Player {
         this.y = this.y + this.jumpSpeed * this.direction;
         this.x = this.x + this.speed;
     }
+
+    passedJumpLine () {
+        var playerTop = this.y;
+        var jumpLine = this.groundLevel - 150;
+    
+        return ( playerTop <= jumpLine );
+    }
 }
 
-Player.prototype.passedJumpLine = function () {
-    var playerTop = this.y;
-    var jumpLine = this.groundLevel - 150;
+// Player.prototype.passedJumpLine = function () {
+//     var playerTop = this.y;
+//     var jumpLine = this.groundLevel - 150;
 
-    return ( playerTop <= jumpLine );
-}
+//     return ( playerTop <= jumpLine );
+// }
 
 Player.prototype.isTouchingBottom = function () {
     var playerBottom = this.y + this.sizeHeight;
