@@ -21,17 +21,23 @@ class Ironbars {
         this.image = new Image();
     }
 
+    drawIronbars () {
+        console.log('hello');
+        this.image.src = "./image/good.png";
+        this.ctx.drawImage(this.image, this.x, this.y, this.ironbarWidth, this.ironbarHeight);
+    }
 }
 
-Ironbars.prototype.drawIronbars = function() {
-    console.log('hello');
-    this.image.src = "./image/good.png";
-    this.ctx.drawImage(this.image, this.x, this.y, this.ironbarWidth, this.ironbarHeight);
+// Ironbars.prototype.drawIronbars = function() {
+//     console.log('hello');
+//     this.image.src = "./image/good.png";
+//     this.ctx.drawImage(this.image, this.x, this.y, this.ironbarWidth, this.ironbarHeight);
 
-    // this.ctx.fillStyle = '#464543';
+//     // this.ctx.fillStyle = '#464543';
 
-    // this.ctx.fillRect(this.x, this.y, this.ironbarWidth, this.ironbarHeight);
-}
+//     // this.ctx.fillRect(this.x, this.y, this.ironbarWidth, this.ironbarHeight);
+// }
+
 
 Ironbars.prototype.updatePositionIronbar = function () {
     this.x -= this.speed;
