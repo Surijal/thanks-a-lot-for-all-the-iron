@@ -194,52 +194,51 @@ class Player {
     
         return false;
     }
+
+    collectIronbar ( Ironbars ) {
+        var playerLeft = this.x;
+        var playerRight = this.x + this.sizeWidth;
+        var playerTop = this.y;
+        var playerBottom = this.y + this.sizeHeight;
+    
+        var IronbarsLeft = Ironbars.x;
+        var IronbarsRight = Ironbars.x + Ironbars.IronbarsWidth;
+        var IronbarsTop = Ironbars.y;
+        var IronbarsBottom = Ironbars.y + Ironbars.IronbarsHeight;
+    
+        var crossRight = IronbarsLeft <= playerRight && IronbarsLeft >= playerLeft;
+        var crossLeft = IronbarsRight >= playerLeft && IronbarsRight <= playerRight;
+        var crossTop = IronbarsBottom >= playerTop && IronbarsBottom <= playerBottom;
+        var crossBottom = IronbarsTop <= playerBottom && IronbarsTop >= playerTop;
+    
+        if ( (crossRight || crossLeft) && (crossBottom || crossTop) ) {
+            return true;
+        }
+        return false;
+    };
 }
 
-
-
-// Player.prototype.enemyKilled = function (SpikedEnemy) {
-//     var playerBottom = this.y + this.sizeHeight;
+// Player.prototype.collectIronbar = function ( Ironbars ) {
 //     var playerLeft = this.x;
 //     var playerRight = this.x + this.sizeWidth;
+//     var playerTop = this.y;
+//     var playerBottom = this.y + this.sizeHeight;
 
-//     var SpikedEnemyTop = SpikedEnemy.y;
-//     var SpikedEnemyLeft = SpikedEnemy.x + 5;
-//     var SpikedEnemyRight = SpikedEnemy.x + SpikedEnemy.spikedEnemyWidth - 5;
-    
-//     var hitEnemy = playerBottom >= SpikedEnemyTop;
-//     var crossLeft = SpikedEnemyRight >= playerLeft && SpikedEnemyLeft <= playerLeft;
-//     var crossRight = SpikedEnemyRight >= playerRight && SpikedEnemyLeft <= playerRight;
+//     var IronbarsLeft = Ironbars.x;
+//     var IronbarsRight = Ironbars.x + Ironbars.IronbarsWidth;
+//     var IronbarsTop = Ironbars.y;
+//     var IronbarsBottom = Ironbars.y + Ironbars.IronbarsHeight;
 
-//     if ( hitEnemy && (crossLeft || crossRight)  ){
+//     var crossRight = IronbarsLeft <= playerRight && IronbarsLeft >= playerLeft;
+//     var crossLeft = IronbarsRight >= playerLeft && IronbarsRight <= playerRight;
+//     var crossTop = IronbarsBottom >= playerTop && IronbarsBottom <= playerBottom;
+//     var crossBottom = IronbarsTop <= playerBottom && IronbarsTop >= playerTop;
 
+//     if ( (crossRight || crossLeft) && (crossBottom || crossTop) ) {
 //         return true;
 //     }
-
 //     return false;
-// }
-
-Player.prototype.collectIronbar = function ( Ironbars ) {
-    var playerLeft = this.x;
-    var playerRight = this.x + this.sizeWidth;
-    var playerTop = this.y;
-    var playerBottom = this.y + this.sizeHeight;
-
-    var IronbarsLeft = Ironbars.x;
-    var IronbarsRight = Ironbars.x + Ironbars.IronbarsWidth;
-    var IronbarsTop = Ironbars.y;
-    var IronbarsBottom = Ironbars.y + Ironbars.IronbarsHeight;
-
-    var crossRight = IronbarsLeft <= playerRight && IronbarsLeft >= playerLeft;
-    var crossLeft = IronbarsRight >= playerLeft && IronbarsRight <= playerRight;
-    var crossTop = IronbarsBottom >= playerTop && IronbarsBottom <= playerBottom;
-    var crossBottom = IronbarsTop <= playerBottom && IronbarsTop >= playerTop;
-
-    if ( (crossRight || crossLeft) && (crossBottom || crossTop) ) {
-        return true;
-    }
-    return false;
-};
+// };
 
 
 
