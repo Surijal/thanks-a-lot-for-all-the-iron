@@ -71,34 +71,11 @@ class Player {
             this.y += 4;
         }
     }
-}
 
-// // called in the loop each frame
-// Player.prototype.jumpMovement = function() {
-//     var playerWasGoingUp = this.direction === -1;
-
-//     if(this.isTouchingBottom() ) { // if player had touched bottom, set direction to zero
-//         this.direction = 0;
-//         this.y = this.groundLevel - this.sizeHeight;
-//     }
-
-//     if(playerWasGoingUp && this.passedJumpLine()) {
-//         this.direction = 1;
-
-//     }
-
-//     if (this.direction === -1) { // if currently moving up
-//         this.y -= 4;
-//     }
-
-//     if (this.direction === 1) { // if currently moving down
-//         this.y += 4;
-//     }
-// }
-
-Player.prototype.movePlayer = function (){
-    this.y = this.y + this.jumpSpeed * this.direction;
-    this.x = this.x + this.speed;
+    movePlayer (){
+        this.y = this.y + this.jumpSpeed * this.direction;
+        this.x = this.x + this.speed;
+    }
 }
 
 Player.prototype.passedJumpLine = function () {
