@@ -29,14 +29,8 @@ class Ironbars {
 
     updatePositionIronbar () {
     this.x -= this.speed;
-}
+    }
 
-}
-
-
-// Ironbars.prototype.updatePositionIronbar = function () {
-//     this.x -= this.speed;
-// }
-
-Ironbars.prototype.insideScreenW = function () {
+    insideScreenW  () {
+    }
 }
