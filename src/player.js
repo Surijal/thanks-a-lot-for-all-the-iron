@@ -108,52 +108,50 @@ class Player {
             this.yVelocity += this.yVelocity;
             this.y += this.yVelocity;
         }
-    }    
+    }
+    
+    playerScreenCollision () {
+        var screenLeft = this.x + this.sizeWidth;
+        var screnRight = this.canvas.width - this.sizeWidth;
+        var bottom = this.groundLevel - this.sizeHeight;
+        var screenTop = 0 +this.sizeHeight;
+        
+        if ( this.x < screenLeft ) {
+            this.x += this.xVelocity;
+            this.y = bottom;
+        } 
+        if ( this.x > screnRight ) {
+            this.x -= this.xVelocity;
+            this.y =bottom;
+        }
+    
+        if (this.y < ( 0  + this.sizeHeight)){
+            this.yVelocity += this.yVelocity;
+            this.y += this.yVelocity;
+        }
+    }
 }
 
-
-
-// // bottomCollision prototype
-// Player.prototype.bottomCollision = function () {
-//     var bottom = this.groundLevel - this.sizeHeight;
-//     var screenLeft = 0;
+// Player.prototype.playerScreenCollision = function () {
+//     var screenLeft = this.x + this.sizeWidth;
 //     var screnRight = this.canvas.width - this.sizeWidth;
+//     var bottom = this.groundLevel - this.sizeHeight;
+//     var screenTop = 0 +this.sizeHeight;
     
 //     if ( this.x < screenLeft ) {
-//         this.xVelocity = 0;
+//         this.x += this.xVelocity;
 //         this.y = bottom;
 //     } 
-//     if ( this.x >screnRight) {
-//         this.xVelocity = 0;
-//         this.y = bottom;   
-//     } 
+//     if ( this.x > screnRight ) {
+//         this.x -= this.xVelocity;
+//         this.y =bottom;
+//     }
+
 //     if (this.y < ( 0  + this.sizeHeight)){
 //         this.yVelocity += this.yVelocity;
 //         this.y += this.yVelocity;
 //     }
-// }    
-    
-
-Player.prototype.playerScreenCollision = function () {
-    var screenLeft = this.x + this.sizeWidth;
-    var screnRight = this.canvas.width - this.sizeWidth;
-    var bottom = this.groundLevel - this.sizeHeight;
-    var screenTop = 0 +this.sizeHeight;
-    
-    if ( this.x < screenLeft ) {
-        this.x += this.xVelocity;
-        this.y = bottom;
-    } 
-    if ( this.x > screnRight ) {
-        this.x -= this.xVelocity;
-        this.y =bottom;
-    }
-
-    if (this.y < ( 0  + this.sizeHeight)){
-        this.yVelocity += this.yVelocity;
-        this.y += this.yVelocity;
-    }
-}
+// }
 
 Player.prototype.didCollideSpikedEnemy = function ( SpikedEnemy ) {
     var playerLeft = this.x;
