@@ -83,20 +83,19 @@ class Player {
     
         return ( playerTop <= jumpLine );
     }
+
+    isTouchingBottom () {
+        var playerBottom = this.y + this.sizeHeight;
+    
+        return ( playerBottom > this.groundLevel );
+    }
 }
 
-// Player.prototype.passedJumpLine = function () {
-//     var playerTop = this.y;
-//     var jumpLine = this.groundLevel - 150;
+// Player.prototype.isTouchingBottom = function () {
+//     var playerBottom = this.y + this.sizeHeight;
 
-//     return ( playerTop <= jumpLine );
+//     return ( playerBottom > this.groundLevel );
 // }
-
-Player.prototype.isTouchingBottom = function () {
-    var playerBottom = this.y + this.sizeHeight;
-
-    return ( playerBottom > this.groundLevel );
-}
 
 
 // bottomCollision prototype
