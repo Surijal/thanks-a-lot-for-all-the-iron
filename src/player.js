@@ -37,56 +37,31 @@ class Player {
         this.x = this.canvas.width / 2;    
         this.y = this.groundLevel - this.sizeHeight;;
     }
-}
 
-// function Player( canvas, lives) {
-//     this.canvas = canvas; //define canvas Player property
-//     this.ctx = this.canvas.getContext('2d'); // defining player canvas Context as 2d
-//     //enviroment calculation
-//     this.canvasHeight = this.canvas.height;
-//     this.groundHeight = 76;
-//     // Gamestats
-//     this.lives = lives;     
-//     // player size
-//     this.sizeWidth = 30;    
-//     this.sizeHeight = 30;  
-//     // Movement default values
-//     this.xVelocity = 0;
-//     this.yVelocity = 0;
-//     this.maxVelocity = 8;
-//     this.speed = 35;
-//     this.jumpSpeed = 10;
-//     this.jumpHeight = 550;
-//     // enviroment default movement value
-//     this.inertia = 0.92;
-//     this.gravity = 0.35;
-//     // default position
+    movement ( direction ) {
+        if ( direction === 'left' ) { // direction left move
+            this.x -= this.speed;        
     
-//     this.jumping = false;
-//     this.image = new Image();
-    
-//     this.onTheGround = true;
-//     this.direction = 0;
-//     this.currentX = 0;
-//     this.westY = 500;
-//     this.groundLevel = this.canvas.height - this.groundHeight;
-//     // player default position
-//     this.x = this.canvas.width / 2;    
-//     this.y = this.groundLevel - this.sizeHeight;;
-// }
+        }
+        
+        if ( direction === 'right' ) {  // direction right move
+            this.x += this.speed;    
+        }
+    }
+}
 
 // defining Player prototype movement
 // called on keydown event only
-Player.prototype.movement = function ( direction ) {
-    if ( direction === 'left' ) { // direction left move
-        this.x -= this.speed;        
+// Player.prototype.movement = function ( direction ) {
+//     if ( direction === 'left' ) { // direction left move
+//         this.x -= this.speed;        
 
-    }
+//     }
     
-    if ( direction === 'right' ) {  // direction right move
-        this.x += this.speed;    
-    }
-}
+//     if ( direction === 'right' ) {  // direction right move
+//         this.x += this.speed;    
+//     }
+// }
 
 // called in the loop each frame
 Player.prototype.jumpMovement = function() {
