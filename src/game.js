@@ -18,59 +18,71 @@ class Game {
         this.ironbar = 0;
         this.score = 0;
     }
+
+    // defining Game Start  prototype function
+    start () {
+        this.canvasContainer = document.querySelector('.canvas-container'); // get canvas-container
+        this.canvas = document.querySelector('canvas'); // get canvas
+        this.ctx = this.canvas.getContext('2d'); // defining Canvas Context 2d
+        //saving lives, ironbar and score to the html
+        this.livesElement =  this.gameScreen.querySelector('.lives .value');
+        this.scoreElement = this.gameScreen.querySelector('.score .value');
+        this.ironbarElement = this.gameScreen.querySelector('.ironbar .value');
+
+        // defining the canvas viewport
+        this.containerWidth = this.canvasContainer.offsetWidth; // defining canvas width
+        this.containerHeight = this.canvasContainer.offsetHeight;   // defining canvas height
+        this.canvas.setAttribute('width', this.containerWidth ); // adding width attribute to containerWidth
+        this.canvas.setAttribute('height', this.containerHeight ); // adding height attribute to containerHeight
+        this.groundHeight = 76;
+        this.groundLevel = this.canvas.height - this.groundHeight;
+    
+        this.spawnRight = this.canvas.width -5;
+        this.spawnLeft = (this.canvas.width - this.canvas.width) +5;
+        
+        //create new Player in the prototype, canvas and 8 Lives
+        this.player = new Player( this.canvas, 3, 0, 0);
+
+        // create new Ground
+        this.ground = new Ground (this.canvas );
+        this.sky = new Sky (this.canvas);
+        
+        // call startLoop - starting the game Loop
+        this.startLoop();
+    }
 }
 
-// // defining Game properties 
-// function Game() {
-//     this.canvas = null; //add canvas property
-//     this.ctx = false;    //add ctx property
-    
-//     // add enemy property
-//     // add player property
-//     this.player = null;
-//     this.enemies = [];
-//     this.goods = [];
-    
-//     this.gameIsOver = false;
-//     this.gameScreen = null;
-    
-//     this.ironbar = 0;
-//     this.score = 0;
-// }
+// // defining Game Start  prototype function
+// Game.prototype.start = function() {
+//     this.canvasContainer = document.querySelector('.canvas-container'); // get canvas-container
+//     this.canvas = document.querySelector('canvas'); // get canvas
+//     this.ctx = this.canvas.getContext('2d'); // defining Canvas Context 2d
+//     //saving lives, ironbar and score to the html
+//     this.livesElement =  this.gameScreen.querySelector('.lives .value');
+//     this.scoreElement = this.gameScreen.querySelector('.score .value');
+//     this.ironbarElement = this.gameScreen.querySelector('.ironbar .value');
 
-
-
-// defining Game Start  prototype function
-Game.prototype.start = function() {
-    this.canvasContainer = document.querySelector('.canvas-container'); // get canvas-container
-    this.canvas = document.querySelector('canvas'); // get canvas
-    this.ctx = this.canvas.getContext('2d'); // defining Canvas Context 2d
-    //saving lives, ironbar and score to the html
-    this.livesElement =  this.gameScreen.querySelector('.lives .value');
-    this.scoreElement = this.gameScreen.querySelector('.score .value');
-    this.ironbarElement = this.gameScreen.querySelector('.ironbar .value');
-
-    // defining the canvas viewport
-    this.containerWidth = this.canvasContainer.offsetWidth; // defining canvas width
-    this.containerHeight = this.canvasContainer.offsetHeight;   // defining canvas height
-    this.canvas.setAttribute('width', this.containerWidth ); // adding width attribute to containerWidth
-    this.canvas.setAttribute('height', this.containerHeight ); // adding height attribute to containerHeight
-    this.groundHeight = 76;
-    this.groundLevel = this.canvas.height - this.groundHeight;
+//     // defining the canvas viewport
+//     this.containerWidth = this.canvasContainer.offsetWidth; // defining canvas width
+//     this.containerHeight = this.canvasContainer.offsetHeight;   // defining canvas height
+//     this.canvas.setAttribute('width', this.containerWidth ); // adding width attribute to containerWidth
+//     this.canvas.setAttribute('height', this.containerHeight ); // adding height attribute to containerHeight
+//     this.groundHeight = 76;
+//     this.groundLevel = this.canvas.height - this.groundHeight;
    
-    this.spawnRight = this.canvas.width -5;
-    this.spawnLeft = (this.canvas.width - this.canvas.width) +5;
+//     this.spawnRight = this.canvas.width -5;
+//     this.spawnLeft = (this.canvas.width - this.canvas.width) +5;
     
-    //create new Player in the prototype, canvas and 8 Lives
-    this.player = new Player( this.canvas, 3, 0, 0);
+//     //create new Player in the prototype, canvas and 8 Lives
+//     this.player = new Player( this.canvas, 3, 0, 0);
 
-    // create new Ground
-    this.ground = new Ground (this.canvas );
-    this.sky = new Sky (this.canvas);
+//     // create new Ground
+//     this.ground = new Ground (this.canvas );
+//     this.sky = new Sky (this.canvas);
     
-    // call startLoop - starting the game Loop
-    this.startLoop();
-}
+//     // call startLoop - starting the game Loop
+//     this.startLoop();
+// }
 
 // defining Game prototype startLoop function
 Game.prototype.startLoop = function() {
