@@ -29,16 +29,10 @@ class SpikedEnemy {
             }
 
         }
-}
 
-
-SpikedEnemy.prototype.drawSpikedEnemyRight = function () {
-    this.ctx.fillStyle ='#581845';
-    debugger;
-    this.ctx.fillRect( this.x, this.y, this.spikedEnemyWidth, this.spikedEnemyHeight);
-}
-
-
+        
+    }
+    
 
 SpikedEnemy.prototype.updatePositionLeft = function () {
         this.x += this.speed * this.direction;
