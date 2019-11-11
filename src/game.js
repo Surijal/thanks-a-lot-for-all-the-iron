@@ -50,39 +50,36 @@ class Game {
         // call startLoop - starting the game Loop
         this.startLoop();
     }
+
+      //define function move player keydown
+    handleKeyDown ( event ) {
+        if (event.key === 'ArrowUp' ) {    
+            var inTheAir = this.groundLevel - this.player.sizeHeight - 10;
+
+            if ( this.player.y < inTheAir ){
+                return false;
+            
+            } else {
+                this.player.direction = -1;
+
+            }
+
+        }
+
+        if ( event.key === 'ArrowRight' ) {
+            this.player.movement('right');
+        }
+
+        if ( event.key === 'ArrowLeft' ) {
+            this.player.movement('left');
+        }
+    };
+
+    //GameOver Callback 
+    passGameOverCallback (callback) {
+        this.onGameOverCallback = callback;
+    }
 }
-
-// // defining Game Start  prototype function
-// Game.prototype.start = function() {
-//     this.canvasContainer = document.querySelector('.canvas-container'); // get canvas-container
-//     this.canvas = document.querySelector('canvas'); // get canvas
-//     this.ctx = this.canvas.getContext('2d'); // defining Canvas Context 2d
-//     //saving lives, ironbar and score to the html
-//     this.livesElement =  this.gameScreen.querySelector('.lives .value');
-//     this.scoreElement = this.gameScreen.querySelector('.score .value');
-//     this.ironbarElement = this.gameScreen.querySelector('.ironbar .value');
-
-//     // defining the canvas viewport
-//     this.containerWidth = this.canvasContainer.offsetWidth; // defining canvas width
-//     this.containerHeight = this.canvasContainer.offsetHeight;   // defining canvas height
-//     this.canvas.setAttribute('width', this.containerWidth ); // adding width attribute to containerWidth
-//     this.canvas.setAttribute('height', this.containerHeight ); // adding height attribute to containerHeight
-//     this.groundHeight = 76;
-//     this.groundLevel = this.canvas.height - this.groundHeight;
-   
-//     this.spawnRight = this.canvas.width -5;
-//     this.spawnLeft = (this.canvas.width - this.canvas.width) +5;
-    
-//     //create new Player in the prototype, canvas and 8 Lives
-//     this.player = new Player( this.canvas, 3, 0, 0);
-
-//     // create new Ground
-//     this.ground = new Ground (this.canvas );
-//     this.sky = new Sky (this.canvas);
-    
-//     // call startLoop - starting the game Loop
-//     this.startLoop();
-// }
 
 // defining Game prototype startLoop function
 Game.prototype.startLoop = function() {
@@ -205,29 +202,29 @@ this.enemies = this.enemies.filter(function (one) {
 };
 
 
-            //define function move player keydown
-            Game.prototype.handleKeyDown = function( event ) {
-                if (event.key === 'ArrowUp' ) {    
-                    var inTheAir = this.groundLevel - this.player.sizeHeight - 10;
+            // //define function move player keydown
+            // Game.prototype.handleKeyDown = function( event ) {
+            //     if (event.key === 'ArrowUp' ) {    
+            //         var inTheAir = this.groundLevel - this.player.sizeHeight - 10;
 
-                    if ( this.player.y < inTheAir ){
-                        return false;
+            //         if ( this.player.y < inTheAir ){
+            //             return false;
                     
-                    } else {
-                        this.player.direction = -1;
+            //         } else {
+            //             this.player.direction = -1;
 
-                    }
+            //         }
 
-                }
+            //     }
 
-                if ( event.key === 'ArrowRight' ) {
-                    this.player.movement('right');
-                }
+            //     if ( event.key === 'ArrowRight' ) {
+            //         this.player.movement('right');
+            //     }
 
-                if ( event.key === 'ArrowLeft' ) {
-                    this.player.movement('left');
-                }
-            };
+            //     if ( event.key === 'ArrowLeft' ) {
+            //         this.player.movement('left');
+            //     }
+            // };
 
 Game.prototype.checkCollisions = function () {
     
@@ -270,10 +267,10 @@ Game.prototype.checkCollisions = function () {
 
 
 
-//GameOver Callback 
-Game.prototype.passGameOverCallback = function (callback) {
-    this.onGameOverCallback = callback;
-}
+// //GameOver Callback 
+// Game.prototype.passGameOverCallback = function (callback) {
+//     this.onGameOverCallback = callback;
+// }
 
 Game.prototype.gameOver = function() {
     this.gameIsOver = true;
