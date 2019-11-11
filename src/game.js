@@ -1,22 +1,42 @@
 'use strict';
 
 // defining Game properties 
-function Game() {
-    this.canvas = null; //add canvas property
-    this.ctx = false;    //add ctx property
-    
-    // add enemy property
-    // add player property
-    this.player = null;
-    this.enemies = [];
-    this.goods = [];
-    
-    this.gameIsOver = false;
-    this.gameScreen = null;
-    
-    this.ironbar = 0;
-    this.score = 0;
+class Game {
+    constructor () {
+        this.canvas = null; //add canvas property
+        this.ctx = false;    //add ctx property
+        
+        // add enemy property
+        // add player property
+        this.player = null;
+        this.enemies = [];
+        this.goods = [];
+        
+        this.gameIsOver = false;
+        this.gameScreen = null;
+        
+        this.ironbar = 0;
+        this.score = 0;
+    }
 }
+
+// // defining Game properties 
+// function Game() {
+//     this.canvas = null; //add canvas property
+//     this.ctx = false;    //add ctx property
+    
+//     // add enemy property
+//     // add player property
+//     this.player = null;
+//     this.enemies = [];
+//     this.goods = [];
+    
+//     this.gameIsOver = false;
+//     this.gameScreen = null;
+    
+//     this.ironbar = 0;
+//     this.score = 0;
+// }
 
 
 
