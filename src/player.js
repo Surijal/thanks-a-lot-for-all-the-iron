@@ -84,39 +84,54 @@ class Player {
         return ( playerTop <= jumpLine );
     }
 
-    isTouchingBottom () {
+    isTouchingBottom  () {
         var playerBottom = this.y + this.sizeHeight;
     
         return ( playerBottom > this.groundLevel );
     }
+
+    // bottomCollision prototype
+    bottomCollision () {
+        var bottom = this.groundLevel - this.sizeHeight;
+        var screenLeft = 0;
+        var screnRight = this.canvas.width - this.sizeWidth;
+        
+        if ( this.x < screenLeft ) {
+            this.xVelocity = 0;
+            this.y = bottom;
+        } 
+        if ( this.x >screnRight) {
+            this.xVelocity = 0;
+            this.y = bottom;   
+        } 
+        if (this.y < ( 0  + this.sizeHeight)){
+            this.yVelocity += this.yVelocity;
+            this.y += this.yVelocity;
+        }
+    }    
 }
 
-// Player.prototype.isTouchingBottom = function () {
-//     var playerBottom = this.y + this.sizeHeight;
-
-//     return ( playerBottom > this.groundLevel );
-// }
 
 
-// bottomCollision prototype
-Player.prototype.bottomCollision = function () {
-    var bottom = this.groundLevel - this.sizeHeight;
-    var screenLeft = 0;
-    var screnRight = this.canvas.width - this.sizeWidth;
+// // bottomCollision prototype
+// Player.prototype.bottomCollision = function () {
+//     var bottom = this.groundLevel - this.sizeHeight;
+//     var screenLeft = 0;
+//     var screnRight = this.canvas.width - this.sizeWidth;
     
-    if ( this.x < screenLeft ) {
-        this.xVelocity = 0;
-        this.y = bottom;
-    } 
-    if ( this.x >screnRight) {
-        this.xVelocity = 0;
-        this.y = bottom;   
-    } 
-    if (this.y < ( 0  + this.sizeHeight)){
-        this.yVelocity += this.yVelocity;
-        this.y += this.yVelocity;
-    }
-}    
+//     if ( this.x < screenLeft ) {
+//         this.xVelocity = 0;
+//         this.y = bottom;
+//     } 
+//     if ( this.x >screnRight) {
+//         this.xVelocity = 0;
+//         this.y = bottom;   
+//     } 
+//     if (this.y < ( 0  + this.sizeHeight)){
+//         this.yVelocity += this.yVelocity;
+//         this.y += this.yVelocity;
+//     }
+// }    
     
 
 Player.prototype.playerScreenCollision = function () {
