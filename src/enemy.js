@@ -30,14 +30,18 @@ class SpikedEnemy {
 
         }
 
+        updatePositionLeft  () {
+            this.x += this.speed * this.direction;
+        }
+
         
     }
     
 
-SpikedEnemy.prototype.updatePositionLeft = function () {
-        this.x += this.speed * this.direction;
+// SpikedEnemy.prototype.updatePositionLeft = function () {
+//         this.x += this.speed * this.direction;
        
-}
+// }
 
 SpikedEnemy.prototype.updatePositionRight = function () {
     this.x -= this.speed * this.direction;
