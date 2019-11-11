@@ -226,24 +226,5 @@ class Player {
     draw () {
         this.image.src = "./image/player.png";
         this.ctx.drawImage(this.image, this.x, this.y, this.sizeWidth, this.sizeHeight);
-        // defining player x position, player y position, player width, player height
-        // this.ctx.fillStyle = '#33FFF0'; // color property
-        // this.ctx.fillRect(this.x, this.y, this.sizeWidth, this.sizeHeight);
-
     }
 }
-
-// // defining Player prototype draw function
-// Player.prototype.draw = function() {
-//     this.image.src = "./image/player.png";
-//     this.ctx.drawImage(this.image, this.x, this.y, this.sizeWidth, this.sizeHeight);
-//     // defining player x position, player y position, player width, player height
-//     // this.ctx.fillStyle = '#33FFF0'; // color property
-//     // this.ctx.fillRect(this.x, this.y, this.sizeWidth, this.sizeHeight);
-
-// }
-
-
-
-
-
