@@ -48,46 +48,53 @@ class Player {
             this.x += this.speed;    
         }
     }
+
+    // called in the loop each frame
+    jumpMovement () {
+        var playerWasGoingUp = this.direction === -1;
+
+        if(this.isTouchingBottom() ) { // if player had touched bottom, set direction to zero
+            this.direction = 0;
+            this.y = this.groundLevel - this.sizeHeight;
+        }
+
+        if(playerWasGoingUp && this.passedJumpLine()) {
+            this.direction = 1;
+
+        }
+
+        if (this.direction === -1) { // if currently moving up
+            this.y -= 4;
+        }
+
+        if (this.direction === 1) { // if currently moving down
+            this.y += 4;
+        }
+    }
 }
 
-// defining Player prototype movement
-// called on keydown event only
-// Player.prototype.movement = function ( direction ) {
-//     if ( direction === 'left' ) { // direction left move
-//         this.x -= this.speed;        
+// // called in the loop each frame
+// Player.prototype.jumpMovement = function() {
+//     var playerWasGoingUp = this.direction === -1;
+
+//     if(this.isTouchingBottom() ) { // if player had touched bottom, set direction to zero
+//         this.direction = 0;
+//         this.y = this.groundLevel - this.sizeHeight;
+//     }
+
+//     if(playerWasGoingUp && this.passedJumpLine()) {
+//         this.direction = 1;
 
 //     }
-    
-//     if ( direction === 'right' ) {  // direction right move
-//         this.x += this.speed;    
+
+//     if (this.direction === -1) { // if currently moving up
+//         this.y -= 4;
+//     }
+
+//     if (this.direction === 1) { // if currently moving down
+//         this.y += 4;
 //     }
 // }
-
-// called in the loop each frame
-Player.prototype.jumpMovement = function() {
-    var playerWasGoingUp = this.direction === -1;
-
-
-
-    if(this.isTouchingBottom() ) { // if player had touched bottom, set direction to zero
-        this.direction = 0;
-        this.y = this.groundLevel - this.sizeHeight;
-    }
-
-    if(playerWasGoingUp && this.passedJumpLine()) {
-        this.direction = 1;
-
-    }
-
-
-    if (this.direction === -1) { // if currently moving up
-        this.y -= 4;
-    }
-
-    if (this.direction === 1) { // if currently moving down
-        this.y += 4;
-    }
-}
 
 Player.prototype.movePlayer = function (){
     this.y = this.y + this.jumpSpeed * this.direction;
