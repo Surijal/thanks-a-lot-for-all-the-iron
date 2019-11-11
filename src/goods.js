@@ -1,6 +1,5 @@
 'use strict';
 
-// defining ironbar property function
 class Ironbars {
     constructor ( canvas, x, speed, random ) {
         this.canvas = canvas; 
