@@ -172,32 +172,52 @@ class Player {
             return true;
         }
         return false;
-    };
-}
-
-
-
-Player.prototype.enemyKilled = function (SpikedEnemy) {
-    var playerBottom = this.y + this.sizeHeight;
-    var playerLeft = this.x;
-    var playerRight = this.x + this.sizeWidth;
-
-    var SpikedEnemyTop = SpikedEnemy.y;
-    var SpikedEnemyLeft = SpikedEnemy.x + 5;
-    var SpikedEnemyRight = SpikedEnemy.x + SpikedEnemy.spikedEnemyWidth - 5;
-    
-    var hitEnemy = playerBottom >= SpikedEnemyTop;
-    var crossLeft = SpikedEnemyRight >= playerLeft && SpikedEnemyLeft <= playerLeft;
-    var crossRight = SpikedEnemyRight >= playerRight && SpikedEnemyLeft <= playerRight;
-   
-
-    if ( hitEnemy && (crossLeft || crossRight)  ){
- 
-        return true;
     }
 
-    return false;
+    enemyKilled (SpikedEnemy) {
+        var playerBottom = this.y + this.sizeHeight;
+        var playerLeft = this.x;
+        var playerRight = this.x + this.sizeWidth;
+    
+        var SpikedEnemyTop = SpikedEnemy.y;
+        var SpikedEnemyLeft = SpikedEnemy.x + 5;
+        var SpikedEnemyRight = SpikedEnemy.x + SpikedEnemy.spikedEnemyWidth - 5;
+        
+        var hitEnemy = playerBottom >= SpikedEnemyTop;
+        var crossLeft = SpikedEnemyRight >= playerLeft && SpikedEnemyLeft <= playerLeft;
+        var crossRight = SpikedEnemyRight >= playerRight && SpikedEnemyLeft <= playerRight;
+    
+        if ( hitEnemy && (crossLeft || crossRight)  ){
+    
+            return true;
+        }
+    
+        return false;
+    }
 }
+
+
+
+// Player.prototype.enemyKilled = function (SpikedEnemy) {
+//     var playerBottom = this.y + this.sizeHeight;
+//     var playerLeft = this.x;
+//     var playerRight = this.x + this.sizeWidth;
+
+//     var SpikedEnemyTop = SpikedEnemy.y;
+//     var SpikedEnemyLeft = SpikedEnemy.x + 5;
+//     var SpikedEnemyRight = SpikedEnemy.x + SpikedEnemy.spikedEnemyWidth - 5;
+    
+//     var hitEnemy = playerBottom >= SpikedEnemyTop;
+//     var crossLeft = SpikedEnemyRight >= playerLeft && SpikedEnemyLeft <= playerLeft;
+//     var crossRight = SpikedEnemyRight >= playerRight && SpikedEnemyLeft <= playerRight;
+
+//     if ( hitEnemy && (crossLeft || crossRight)  ){
+
+//         return true;
+//     }
+
+//     return false;
+// }
 
 Player.prototype.collectIronbar = function ( Ironbars ) {
     var playerLeft = this.x;
