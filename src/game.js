@@ -84,6 +84,11 @@ class Game {
     addScore () {
         this.score += 250;
     }
+
+    //add Ironbars prototype
+    addIronbar () {
+    this.ironbar += 1;
+    }
 }
 
 // defining Game prototype startLoop function
@@ -275,14 +280,7 @@ Game.prototype.updateGameStats = function() {
     this.ironbarElement.innerHTML = this.ironbar;
 }
 
-//add Ironbars prototype
-Game.prototype.addIronbar = function () {
-    this.ironbar += 1;
-}
-
-// Game.prototype.addScore = function (){
-//     this.score += 250;
+// //add Ironbars prototype
+// Game.prototype.addIronbar = function () {
+//     this.ironbar += 1;
 // }
-
-
-
