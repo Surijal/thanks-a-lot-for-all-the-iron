@@ -108,6 +108,18 @@ class Game {
     
         this.onGameOverCallback();
     }
+
+    checkRewardCollisions () {
+        this.goods.forEach(function(Ironbars) {
+            
+            if (this.player.collectIronbar(Ironbars)){
+                this.addIronbar();
+    
+                Ironbars.y = 0;
+            }
+    
+        }, this);
+    }
 }
 
 // defining Game prototype startLoop function
@@ -259,28 +271,14 @@ Game.prototype.checkCollisions = function () {
 
     }
     
-    Game.prototype.checkRewardCollisions = function () {
-        this.goods.forEach(function(Ironbars) {
+    // Game.prototype.checkRewardCollisions = function () {
+    //     this.goods.forEach(function(Ironbars) {
             
-            if (this.player.collectIronbar(Ironbars)){
-                this.addIronbar();
+    //         if (this.player.collectIronbar(Ironbars)){
+    //             this.addIronbar();
     
-                Ironbars.y = 0;
-            }
+    //             Ironbars.y = 0;
+    //         }
     
-        }, this);
-    }
-
-
-
-
-// //GameOver Callback 
-// Game.prototype.passGameOverCallback = function (callback) {
-//     this.onGameOverCallback = callback;
-// }
-
-// Game.prototype.gameOver = function() {
-//     this.gameIsOver = true;
-
-//     this.onGameOverCallback();
-// }
+    //     }, this);
+    // }
