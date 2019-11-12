@@ -79,6 +79,11 @@ class Game {
     passGameOverCallback (callback) {
         this.onGameOverCallback = callback;
     }
+
+    //Adding score
+    addScore () {
+        this.score += 250;
+    }
 }
 
 // defining Game prototype startLoop function
@@ -202,29 +207,7 @@ this.enemies = this.enemies.filter(function (one) {
 };
 
 
-            // //define function move player keydown
-            // Game.prototype.handleKeyDown = function( event ) {
-            //     if (event.key === 'ArrowUp' ) {    
-            //         var inTheAir = this.groundLevel - this.player.sizeHeight - 10;
-
-            //         if ( this.player.y < inTheAir ){
-            //             return false;
-                    
-            //         } else {
-            //             this.player.direction = -1;
-
-            //         }
-
-            //     }
-
-            //     if ( event.key === 'ArrowRight' ) {
-            //         this.player.movement('right');
-            //     }
-
-            //     if ( event.key === 'ArrowLeft' ) {
-            //         this.player.movement('left');
-            //     }
-            // };
+            
 
 Game.prototype.checkCollisions = function () {
     
@@ -297,9 +280,9 @@ Game.prototype.addIronbar = function () {
     this.ironbar += 1;
 }
 
-Game.prototype.addScore = function (){
-    this.score += 250;
-}
+// Game.prototype.addScore = function (){
+//     this.score += 250;
+// }
 
 
 
