@@ -72,7 +72,7 @@ class Player {
         }
     }
 
-    movePlayer (){
+    movePlayer = () => {
         this.y = this.y + this.jumpSpeed * this.direction;
         this.x = this.x + this.speed;
     }
