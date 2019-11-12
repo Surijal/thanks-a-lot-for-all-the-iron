@@ -253,32 +253,16 @@ Game.prototype.checkCollisions = function () {
             spikedEnemy.x = this.canvas.width + spikedEnemy.spikedEnemyWidth;
             this.addScore();
 
-            
         } 
         else if (this.player.didCollideSpikedEnemy(spikedEnemy)) {
             
-                
                 this.player.removeLive();
                 spikedEnemy.x = this.canvas.width + spikedEnemy.spikedEnemyWidth;
 
-                
                 if (this.player.lives === 0) {
                     this.gameOver();
                 } 
-
             } 
         } ,this);
 
     }
-    
-    // Game.prototype.checkRewardCollisions = function () {
-    //     this.goods.forEach(function(Ironbars) {
-            
-    //         if (this.player.collectIronbar(Ironbars)){
-    //             this.addIronbar();
-    
-    //             Ironbars.y = 0;
-    //         }
-    
-    //     }, this);
-    // }
