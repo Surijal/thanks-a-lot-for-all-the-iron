@@ -38,7 +38,7 @@ class Player {
         this.y = this.groundLevel - this.sizeHeight;;
     }
 
-    movement ( direction ) {
+    movement = direction => {
         if ( direction === 'left' ) { // direction left move
             this.x -= this.speed;        
     
