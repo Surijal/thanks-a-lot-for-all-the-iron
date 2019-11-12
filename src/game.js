@@ -89,6 +89,14 @@ class Game {
     addIronbar () {
     this.ironbar += 1;
     }
+
+    //Update Game stats
+    updateGameStats () {
+        //this.score ++  ;
+        this.livesElement.innerHTML = this.player.lives;
+        this.scoreElement.innerHTML = this.score;
+        this.ironbarElement.innerHTML = this.ironbar;
+    }
 }
 
 // defining Game prototype startLoop function
@@ -272,15 +280,10 @@ Game.prototype.removeGameScreen = function() {
     this.gameScreen.remove();
 }
 
-//Update Game stats
-Game.prototype.updateGameStats = function() {
-    //this.score ++  ;
-    this.livesElement.innerHTML = this.player.lives;
-    this.scoreElement.innerHTML = this.score;
-    this.ironbarElement.innerHTML = this.ironbar;
-}
-
-// //add Ironbars prototype
-// Game.prototype.addIronbar = function () {
-//     this.ironbar += 1;
+// //Update Game stats
+// Game.prototype.updateGameStats = function() {
+//     //this.score ++  ;
+//     this.livesElement.innerHTML = this.player.lives;
+//     this.scoreElement.innerHTML = this.score;
+//     this.ironbarElement.innerHTML = this.ironbar;
 // }
