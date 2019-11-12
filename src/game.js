@@ -157,8 +157,6 @@ Game.prototype.startLoop = function() {
         
             var startRight = this.spawnRight;
         
-            // this.enemies.push(new SpikedEnemy(this.canvas, +1.5, random, this.startLeft ));
-            // this.enemies.push(new SpikedEnemy(this.canvas, -1.5, random,this.startRight ));  
             if ( random < 20) {
                 
                 this.enemies.push(new SpikedEnemy(this.canvas, +1.5, startLeft, 1));     
@@ -184,7 +182,6 @@ Game.prototype.startLoop = function() {
         // bottomCollision call
         this.player.bottomCollision();
         // enemies update
-        //this.player.playerScreenCollision();
         
         
         this.checkCollisions();
@@ -225,24 +222,10 @@ this.enemies = this.enemies.filter(function (one) {
         // draw the Ground
         this.ground.drawGround();
         
-
-        
-        // draw enemy
-        // if ( this.enemies.startRight = true ) {
-        //     this.enemies.forEach(function( item ) { 
-        //         item.drawSpikedEnemyRight();
-                
-        //     });
-        // }
-
-
         this.enemies.forEach(function( item ) { 
             item.drawSpikedEnemyLeft();
         })
     
-    
-        //this.spikedEnemy.updatePosition();
-        
         // draw goods
         this.goods.forEach(function(goodDraw){
             goodDraw.drawIronbars();
