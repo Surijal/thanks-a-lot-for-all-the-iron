@@ -97,6 +97,11 @@ class Game {
         this.scoreElement.innerHTML = this.score;
         this.ironbarElement.innerHTML = this.ironbar;
     }
+
+        //Prototype remove GameScreen
+    removeGameScreen () {
+        this.gameScreen.remove();
+    }
 }
 
 // defining Game prototype startLoop function
@@ -274,16 +279,7 @@ Game.prototype.gameOver = function() {
     this.onGameOverCallback();
 }
 
-//Prototype remove GameScreen
-
-Game.prototype.removeGameScreen = function() {
-    this.gameScreen.remove();
-}
-
-// //Update Game stats
-// Game.prototype.updateGameStats = function() {
-//     //this.score ++  ;
-//     this.livesElement.innerHTML = this.player.lives;
-//     this.scoreElement.innerHTML = this.score;
-//     this.ironbarElement.innerHTML = this.ironbar;
+// //Prototype remove GameScreen
+// Game.prototype.removeGameScreen = function() {
+//     this.gameScreen.remove();
 // }
