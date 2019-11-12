@@ -102,6 +102,12 @@ class Game {
     removeGameScreen () {
         this.gameScreen.remove();
     }
+
+    gameOver () {
+        this.gameIsOver = true;
+    
+        this.onGameOverCallback();
+    }
 }
 
 // defining Game prototype startLoop function
@@ -273,13 +279,8 @@ Game.prototype.checkCollisions = function () {
 //     this.onGameOverCallback = callback;
 // }
 
-Game.prototype.gameOver = function() {
-    this.gameIsOver = true;
+// Game.prototype.gameOver = function() {
+//     this.gameIsOver = true;
 
-    this.onGameOverCallback();
-}
-
-// //Prototype remove GameScreen
-// Game.prototype.removeGameScreen = function() {
-//     this.gameScreen.remove();
+//     this.onGameOverCallback();
 // }
