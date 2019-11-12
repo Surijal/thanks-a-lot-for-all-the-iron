@@ -120,6 +120,27 @@ class Game {
     
         }, this);
     }
+
+    checkCollisions () {
+    
+        this.enemies.forEach(function (spikedEnemy) {
+            if (this.player.enemyKilled(spikedEnemy)) {
+            
+                spikedEnemy.x = this.canvas.width + spikedEnemy.spikedEnemyWidth;
+                this.addScore();
+    
+            } 
+            else if (this.player.didCollideSpikedEnemy(spikedEnemy)) {
+                
+                    this.player.removeLive();
+                    spikedEnemy.x = this.canvas.width + spikedEnemy.spikedEnemyWidth;
+    
+                    if (this.player.lives === 0) {
+                        this.gameOver();
+                    } 
+                } 
+            } ,this);
+        }
 }
 
 // defining Game prototype startLoop function
@@ -241,28 +262,3 @@ this.enemies = this.enemies.filter(function (one) {
 
     window.requestAnimationFrame(loop);
 };
-
-
-            
-
-Game.prototype.checkCollisions = function () {
-    
-    this.enemies.forEach(function (spikedEnemy) {
-        if (this.player.enemyKilled(spikedEnemy)) {
-        
-            spikedEnemy.x = this.canvas.width + spikedEnemy.spikedEnemyWidth;
-            this.addScore();
-
-        } 
-        else if (this.player.didCollideSpikedEnemy(spikedEnemy)) {
-            
-                this.player.removeLive();
-                spikedEnemy.x = this.canvas.width + spikedEnemy.spikedEnemyWidth;
-
-                if (this.player.lives === 0) {
-                    this.gameOver();
-                } 
-            } 
-        } ,this);
-
-    }
